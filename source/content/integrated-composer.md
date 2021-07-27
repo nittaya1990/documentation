@@ -13,7 +13,7 @@ Integrated Composer lets you deploy your site on Pantheon with one-click updates
 
 ### Drupal 9 with Integrated Composer
 
-- To convert an existing Drupal 8 site to a Composer-managed site, visit the [composer convert](/guides/drupal-9-migration) doc.
+- To convert an existing Drupal 8 site to a Composer-managed site, visit the [Composer Convert](/guides/composer-convert) doc.
 
 - To upgrade or migrate an existing site to Drupal 9 with Integrated Composer, visit the [Migrate to Drupal 9](/guides/drupal-9-migration) guide.
 
@@ -29,7 +29,6 @@ Integrated Composer lets you deploy your site on Pantheon with one-click updates
 
 1. [Clone the site locally](/local-development#get-the-code) and run `composer install`.
 
-
 ## Add a Dependency to an Individual Site
 
 1. Clone the Git repository from the Pantheon site's dashboard.
@@ -39,6 +38,7 @@ Integrated Composer lets you deploy your site on Pantheon with one-click updates
    ```bash{promptUser: user}
     composer install
    ```
+
 1. Add a new dependency locally:
 
    ```bash{promptUser: user}
@@ -51,7 +51,7 @@ Integrated Composer lets you deploy your site on Pantheon with one-click updates
 
 ### Remove Individual Site Dependencies
 
-You can remove site dependencies if they are no longer needed. 
+You can remove site dependencies if they are no longer needed.
 
 1. Remove the dependency locally:
 
@@ -67,10 +67,9 @@ You can remove site dependencies if they are no longer needed.
 
 1. Navigate to **Code** in the Dev tab of the site's Dashboard.
 
-1. Click **Check Now**. 
+1. Click **Check Now**.
 
 1. If updates are available, click **Apply Updates**.
-
 
 ## Upstream
 
@@ -96,8 +95,8 @@ Upstream refers to the source code that is hosted in the [Pantheon code reposito
     composer require drupal/pkg-name --no-update
     ```
 
-     -  `--no-update` tells Composer to disable automatic updates of the dependency. This makes Composer faster when adding dependencies to the Upstream as shown here. 
-     -  `--no-update` should not be included when adding dependencies to a site.
+     - `--no-update` tells Composer to disable automatic updates of the dependency. This makes Composer faster when adding dependencies to the Upstream as shown here. 
+     - `--no-update` should not be included when adding dependencies to a site.
 
 1. Set or increment the current configuration version:
 
@@ -119,7 +118,6 @@ Upstream refers to the source code that is hosted in the [Pantheon code reposito
 
 1. Commit and push.
 
-
 ## Support
 
 ### Pantheon Supports Composer 2
@@ -128,11 +126,9 @@ The version of Composer on the platform is Composer 2.
 
 Some packages are not compatible with Composer 2. If you encounter a build error that instructs you to contact [Support](/support), validate the package version's compatibility locally first, and check Drupal's [Preparing your site for Composer 2](https://www.drupal.org/docs/develop/using-composer/preparing-your-site-for-composer-2#s-composer-plugins) documentation for packages that have already been identified.
 
-
 ### Pantheon's Scope of Support for Composer
 
 <Partial file="composer-support-scope.md"/>
-
 
 ## Troubleshooting Code Syncs and Upstream Updates
 
