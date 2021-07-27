@@ -1,8 +1,9 @@
 ---
 title: Add Static HTML and Empty Upstream
 description: How and when to use empty upstreams as part of the Built Tools setup process.
+contributors: [michellecolon-pantheon]
 categories: [get-started]
-tags: [upstreams, static html, site]
+tags: [upstreams, site]
 reviewed: "2021-07-26"
 ---
 
