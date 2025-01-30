@@ -1,12 +1,17 @@
 ---
 title: Dyn Domain Configuration
 provider: Dyn
-dnsprovider: true
 description: Learn how to point your Dyn domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 permalink: docs/:basename
 editpath: dns-providers/dyn.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains, launch]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [--]
 ---
 ## Before You Begin
 Be sure that you have a:
@@ -18,12 +23,12 @@ Be sure that you have a:
 
 - [Domain connected](/guides/launch/domains) to the target Pantheon environment (typically Live):
 
- ![Domains / HTTPS](../../images/dashboard/domain-added.png)
+ ![Domains / HTTPS](../../images/dashboard/new-dashboard/2024/_domainadded.png)
 
 ## Locate Pantheon's DNS Values
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. Navigate to the [Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 2. Click the **Details** button next to your domain.
 
 Keep this page open and login to your [Dyn DNS account](https://portal.dynect.net/login/) in a new tab before you continue.
@@ -56,13 +61,14 @@ Keep this page open and login to your [Dyn DNS account](https://portal.dynect.ne
 1. Click **Add**.
 1. Repeat steps 1-4 for the second AAAA record value provided by Pantheon. There are two AAAA records for improved uptime and reliability.
 
-### A Record for subdomain
-An A record is required to configure a subdomain (e.g., `www.example.com`).
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
 1. Select **A** from the record type dropdown menu.
 2. Enter the A record value provided by Pantheon (e.g. `23.185.0.2`) in the **IP Address** field.
 3. Select desired Time to Live (TTL).
 4. Click **Add**.
+5. Repeat steps 1-4 for the two AAAA records.
 
 ## Dyn Docs
 
@@ -72,4 +78,5 @@ An A record is required to configure a subdomain (e.g., `www.example.com`).
 ## Next Steps
 
 * [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 * [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

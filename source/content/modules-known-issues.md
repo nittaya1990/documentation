@@ -1,12 +1,18 @@
 ---
 title: Drupal Modules with Known Issues
 description: A list of Drupal modules that are not supported and/or require workarounds.
-cms: "Drupal"
-categories: [troubleshoot]
 tags: [modules]
+contenttype: [doc]
+showtoc: true
+innav: [true]
+categories: [issues]
+cms: [drupal]
+audience: [development]
+product: [--]
+integration: [--]
 ---
 
-This page lists modules that may not function as expected or are currently problematic on the Pantheon platform. This is not a comprehensive list (refer to [other issues](#other-issues)). We continually update it as problems are reported and/or solved. If you are aware of any modules that do not work as expected, please [contact support](/support).
+This page lists modules that may not function as expected or are currently problematic on the Pantheon platform. This is not a comprehensive list (refer to [other issues](#other-issues)). We continually update it as problems are reported and/or solved. If you are aware of any modules that do not work as expected, please [contact support](/guides/support/contact-support/).
 
 We do not prevent you from installing and using these plugins/modules. However, we cannot provide support for incompatible modules, or if they are used against the guidance provided here.
 
@@ -27,7 +33,7 @@ ___
 
 <ReviewDate date="2020-02-10" />
 
-**Issue**: This module requires edits to the `nginx.conf` which is not currently supported on the platform. Refer to the [Platform Considerations](/platform-considerations/#nginx.conf) documentation and [https://www.drupal.org/node/1669182](https://www.drupal.org/node/1669182) for more information.
+**Issue**: This module requires edits to the `nginx.conf` which is not currently supported on the platform. Refer to the [Platform Considerations](/guides/platform-considerations/platform-site-info/#nginx.conf) documentation and [https://www.drupal.org/node/1669182](https://www.drupal.org/node/1669182) for more information.
 ___
 
 ## [Apache Solr Multilingual](https://www.drupal.org/project/apachesolr_multilingual)
@@ -39,31 +45,44 @@ ___
 
 ## [Background Process](https://www.drupal.org/project/background_process)
 
-**Issue**: The module allows for Drupal to perform "parallel" (asynchronous non-blocking mode) requests. However, there are a number of limitations working in a distributed environment and function correctly on the platform. Refer to [https://www.drupal.org/node/2233843](https://www.drupal.org/node/2233843) for more information.
+**Issue 1**: The module allows for Drupal to perform "parallel" (asynchronous non-blocking mode) requests. However, there are a number of limitations working in a distributed environment and function correctly on the platform. Refer to [https://www.drupal.org/node/2233843](https://www.drupal.org/node/2233843) for more information.
 
+**Issue 2**: Background processes are not running or are running intermittently. When a stream socket is set to non-blocking mode, the pointer immediately goes out of scope after the socket is written. The remote server appears to close the connection without accepting the input.
+
+**Solution 2**: Add a sleep function before the socket pointer goes out of scope. A 50ms to 250ms is a sufficient sleep time to avoid the connection being closed before the socket is written. Review the example below.
+
+`sleep()` function added to `background_process_http_request_initiate()` in a custom module:
+```   
+   if ($timeout > 0) {
+      stream_set_timeout($fp, floor($timeout), floor(1000000 * fmod($timeout, 1)));
+      fwrite($fp, $request);
+      stream_set_blocking($fp, 0);
+      sleep(1);
+   }
+ ```
+ Refer to [https://www.drupal.org/node/2619902](https://www.drupal.org/node/2619902) for more information.
 ___
 
 ## [Backup and Migrate](https://www.drupal.org/project/backup_migrate)
 
-**Issue**: The Backup and Migrate module can create large archives and cause issues with the tools in the Database / Files tab of the Dashboard. Refer to [Backup Creation](/backups/#why-is-the-drupal-module-backup-%26-migrate-not-recommended-on-pantheon%3F) for more information.
+**Issue**: The Backup and Migrate module can create large archives and cause issues with the tools in the Database / Files tab of the Dashboard. Refer to the [Backups Tool guide](/guides/backups/faqs-backups#why-is-the-drupal-module-backup--migrate-not-recommended-on-pantheon) for more information.
 
-**Solution**: You can use the automated backups that are available on the Dashboard for each environment. If you want to access your backups and copy it to your own repository (Amazon S3, FTP server, etc), consider using a bash script. You can do that by running it in your local system, or use an external server, or a service that runs cron jobs for you. Refer to the [Access Backups](/backups/#access-backups) documentation for more details.
-
+**Solution**: You can use the automated backups that are available on the Dashboard for each environment. If you want to access your backups and copy it to your own repository (Amazon S3, FTP server, etc), consider using a bash script. You can do that by running it in your local system, or use an external server, or a service that runs cron jobs for you.
 ___
 
 ## [Basic HTTP Authentication](https://www.drupal.org/project/basic_auth)
 
 <ReviewDate date="2020-08-25" />
 
-**Issue**: This module conflicts with [Pantheon's Dashboard Security Tool](/security#password-protect-your-sites-environments) when both are enabled on Drupal sites, resulting in 403 errors.
+**Issue**: This module conflicts with [Pantheon's Dashboard Security Tool](/guides/secure-development/security-tool#password-protect-your-sites-environments) when both are enabled on Drupal sites, resulting in 403 errors.
 
-**Solution**:  We suggest using Pantheon's Dashboard Security Tool if you want to set up HTTP authentication. Additionally, refer to [Advanced Redirects and Restrictions](/advanced-redirects) for more options to control and restrict access to some or all of your site.
+**Solution**:  We suggest using Pantheon's Dashboard Security Tool if you want to set up HTTP authentication. Additionally, refer to [Advanced Redirects and Restrictions](/guides/redirect/advanced) for more options to control and restrict access to some or all of your site.
 
 ___
 
 ## [BigPipe](https://www.drupal.org/documentation/modules/big_pipe)
 
-<ReviewDate date="2018-04-22" />
+<ReviewDate date="2024-01-09" />
 
 **Issue**: The Pantheon Edge layer buffers text output, and BigPipe depends on being able to stream text output. Since BigPipe provides no benefit on Pantheon sites, we recommend disabling it.
 
@@ -71,7 +90,7 @@ ___
 
 ## [Boost](https://www.drupal.org/project/boost)
 
-**Issue**: Boost is an unnecessary caching layer that may cause issues. Every site on Pantheon can leverage our robust page caching infrastructure that returns pages for anonymous visitors at the highest possible performance. Refer to [Pantheon's Global CDN](/global-cdn) documentation for more information.
+**Issue**: Boost is an unnecessary caching layer that may cause issues. Every site on Pantheon can leverage our robust page caching infrastructure that returns pages for anonymous visitors at the highest possible performance. Refer to [Pantheon's Global CDN](/guides/global-cdn) documentation for more information.
 
 ___
 
@@ -89,7 +108,7 @@ ___
 
 This module has been deprecated by its authors for Drupal 8 and above. The suggestions made below are for Drupal 7 users, and are not guaranteed to be successful in all use cases.
 
-If you're creating a new site that needs Composer-managed libraries, we strongly recommend using Drupal 8.1 or newer.
+If you're creating a new site that needs Composer-managed libraries, we strongly recommend using Drupal 9 or newer.
 
 **Issue**: Composer Manager expects write access to the site's codebase via SFTP, which is prevented in Test and Live environments on Pantheon by design.
 
@@ -118,7 +137,7 @@ ___
 
 This plugin is [deprecated](https://www.drupal.org/docs/develop/using-composer/managing-dependencies-for-a-custom-project).
 
-**Issue**: The `wikimedia/composer-merge-plugin` package plugin automatically runs `composer update` during `composer install`, causing conflicts with Pantheon's Integrated Composer framework. 
+**Issue**: The `wikimedia/composer-merge-plugin` package plugin automatically runs `composer update` during `composer install`, causing conflicts with Pantheon's Integrated Composer framework.
 
 **Solution**: Sites managing dependencies for a custom project should move to the recommended [path repository method](https://www.drupal.org/docs/develop/using-composer/managing-dependencies-for-a-custom-project).
 ___
@@ -131,13 +150,11 @@ ___
 
 ___
 
-## [Dynamic Entity Reference](https://www.drupal.org/project/dynamic_entity_reference)
+## [Dynamic Entity Reference](https://www.drupal.org/project/dynamic_entity_reference/issues/2930423)
 
-<ReviewDate date="2021-08-06" />
+<ReviewDate date="2023-06-09" />
 
-Dynamic Entity Reference provides a field combination for Drupal 8 that allows for the reference of more than one entity type.
-
-**Issue**: The Dynamic Entity Reference module is an alpha version contributor module, and the MySQL queries it creates cannot be controlled or regulated. MySQL triggers are not well supported in Drupal or WordPress applications. On Pantheon, when cloning the database between environments, these triggers may not work or may cause errors when used.
+**Issue:** Dynamic Entity Reference isn't supported on Pantheon because MySQL triggers are not supported. Stored procedures and events are also not supported. Refer to [Database Stored Procedures](/guides/platform-considerations/platform-site-info#database-stored-procedures) in the [Platform Considerations](/guides/platform-considerations) guide for more information.
 
 ___
 
@@ -161,25 +178,18 @@ ___
 
 <ReviewDate date="2019-07-10" />
 
-**Issue**: http:BL only has a module to take advantage of the service for Apache. Pantheon runs on nginx webservers and Apache modules are not compatible with the Platform.
-
-___
-
-## [HTTP Basic Authentication](https://www.drupal.org/docs/8/core/modules/basic_auth) - Drupal 8 (core)
-
- **Issue**: This Drupal 8 core module conflicts with [Pantheon's Security tool](/security/#password-protect-your-site%27s-environments) when both are enabled, resulting in 403 errors.
-
- **Solution**: Lock the environment via Pantheon's Security tool or via the module, not both. For details, refer to [Security on the Pantheon Dashboard](/security/#troubleshoot) for more information.
-
+**Issue**: http:BL only has a module to take advantage of the service for Apache. Pantheon runs on nginx web servers and Apache modules are not compatible with the Platform.
 ___
 
 ## [IMCE 6.x](https://www.drupal.org/node/251024) and [IMCE 7.x](https://www.drupal.org/project/imce/releases/7.x-1.11)
 
 **Issue**: Operations on directories containing an inordinate amount of files will likely hit the load balancer timeout threshold (30 seconds).
 
-**Solution**: One solution is to break up the files into smaller groups so that directories are less populated. Another option is to rewrite `imce_image_info()` so that your site's caching backend (Database or Object Cache) is used for operations on highly populated directories:
+**Solution 1:** Upgrade to the [latest version of IMCE](https://www.drupal.org/project/imce/releases/3.0.7) if possible. IMCE for Drupal 7 now has an option on Dev (not a tagged release) to disable the metadata, which prevents timeouts.
 
-1. [Enable the Object Cache](/object-cache), otherwise the database cache is utilized. (Depending on your site's configuration, you may not need to enable the object cache.)
+**Solution 2**: Break up the files into smaller groups so that directories are less populated. Another option is to rewrite `imce_image_info()` so that your site's caching backend (Database or Object Cache) is used for operations on highly populated directories:
+
+1. [Enable the Object Cache](/object-cache/drupal), otherwise the database cache is utilized. (Depending on your site's configuration, you may not need to enable the object cache.)
 1. Edit `imce/inc/imce.page.inc` and replace the contents of `imce_image_info()` with:
 
  ```php:title=imce.page.inc
@@ -212,7 +222,7 @@ ___
 
 <ReviewDate date="2019-10-17" />
 
-**Issue**: ImageAPI Optimize supports 3rd party libraries such as advpng, OptiPNG, PNGCRUSH, jpegtran, jfifremove, advdef, pngout, jpegoptim. These libraries have to be installed on the server. At this time, they are not supported.
+**Issue**: ImageAPI Optimize supports 3rd-party libraries such as advpng, OptiPNG, PNGCRUSH, jpegtran, jfifremove, advdef, pngout, jpegoptim. These libraries have to be installed on the server. At this time, they are not supported.
 
 **Solution**: Use a 3rd-party module like [reSmush.It](https://www.drupal.org/project/resmushit) or a local application like [ImageOptim.](https://imageoptim.com) or [OptiPNG](http://optipng.sourceforge.net/).
 
@@ -227,7 +237,7 @@ ___
 
 ## [LiveReload](https://www.drupal.org/project/livereload)
 
-**Issue**: This module triggers heavy load on the application container as soon as it is enabled and causes pages to time out for anonymous users for Drupal 7 and Drupal 8.
+**Issue**: This module triggers heavy load on the application container as soon as it is enabled and causes pages to time out for anonymous users for Drupal.
 
 ___
 
@@ -239,9 +249,37 @@ ___
 
 ___
 
+## [Ludwig]([https://www.drupal.org/project/ludwig](https://www.drupal.org/project/ludwig))
+
+<ReviewDate date="2024-04-18" />
+
+**Issue**: Ludwig expects write access to the site's codebase via SFTP, which is prevented in Test and Live environments on Pantheon by design.
+
+**Solution**: As covered by the [module's project page](https://www.drupal.org/project/ludwig), Composer managed Drupal sites should not use Ludwig. See also, this discussion regarding [Ludwig EOL](https://www.drupal.org/project/ludwig/issues/3377094).
+
+___
+
 ## [Media: Browser Plus](https://www.drupal.org/project/media_browser_plus)
 
 **Issue**:  This module requires the use of the `/tmp` directory. Refer to the [Using the tmp Directory](#using-the-tmp-directory) section below.
+
+___
+
+## [Media Bulk Upload](https://www.drupal.org/project/media_bulk_upload)
+<ReviewDate date="2024-06-24" />
+
+**Issue**: The default configuration for this module has been known to cause issues related to the "Upload location" setting, which out of the box uses the `/tmp` directory.
+
+**Solution**: Configure the "Upload location" to `public://sites/default/files/private` You must include the `public://` protocol for this solution to work.
+
+___
+
+## [Menu Item Extras](https://www.drupal.org/project/menu_item_extras)
+<ReviewDate date="2025-01-30" />
+
+**Issue**: [Performance issues have been reported](https://www.drupal.org/project/menu_item_extras/issues/3370223) for sites with large menus, causing responses for uncached visits to [timeout](/guides/errors-and-server-responses/5xx-errors#pantheon-504-gateway-timeout). 
+
+**Solution**: [Apply this patch](https://git.drupalcode.org/project/menu_item_extras/-/merge_requests/37.patch) (which has been tested and validated by Pantheon), to improve performance and avoid related timeouts.
 
 ___
 
@@ -267,7 +305,7 @@ ___
 
  **Solution**: The [documentation on Drupal.org](https://drupal.org/node/257026) for the module mentions the issues and the remedy, which is a cache clear operation. If you are unable to exclude cached data from your dumps or avoid migrating cache data, you should clear your site's cache after importing the data.
 
- Additionally, Pathologic can cause the change of base URLs in a domain access configuration based on the value of `$options['url']` in the site Drush config. This is set to the first domain listed on an environment by default on Pantheon, which can result in unexpected root domains being written to the cache. Refer to [our Drush documentation](/drush/#known-limitations) for more information about overriding this value.
+ Additionally, Pathologic can cause the change of base URLs in a domain access configuration based on the value of `$options['url']` in the site Drush config. This is set to the first domain listed on an environment by default on Pantheon, which can result in unexpected root domains being written to the cache. Refer to [our Drush documentation](/guides/drush/drush-known-limitations) for more information about overriding this value.
 
 ## [Persistent Login](https://www.drupal.org/project/persistent_login)
 
@@ -278,13 +316,24 @@ ___
 
 ## Plupload
 
-**Issue**: [Plupload](https://www.drupal.org/project/plupload) requires the use of the `/tmp` directory. Refer to the [Using the tmp Directory](#using-the-tmp-directory) section below.
+**Issue**: [Plupload](https://www.drupal.org/project/plupload) requires the use of the `/tmp` directory. Refer to the [Using the tmp Directory](/guides/filesystem/tmp#using-the-tmp-directory) section below.
 
 **Solution**: A possible solution is to set the `plupload_temporary_uri` variable in `settings.php`. Example:
 
 ```php:title=setting.php
 $conf['plupload_temporary_uri'] ='private://tmp';
 ```
+
+___
+
+## [Replica - Database Configuration](https://www.drupal.org/docs/8/api/database-api/database-configuration)
+
+<ReviewDate date="2023-09-28" />
+
+**Issue:** Pantheon's database replication architecture is incompatible with replica configurations for Drupal, as the application does not expect the replica to be readable during the bootstrap process and continues to query it instead of falling back to the main database. This issue is known to cause significant application problems when used on the platform.
+
+
+**Solution:** Replica configuration is not supported or recommended on Pantheon and there is no known workaround at this time.
 
 ___
 
@@ -306,7 +355,7 @@ ___
 
 **Solution:** Add more domains to your Google reCAPTCHA configuration. Add `dev-<sitename>.pantheonsite.io` and `test-<sitename>.pantheonsite.io` to the site. This is set in [Google's reCAPTCHA admin panel](https://www.google.com/recaptcha/admin).
 
-**Solution 2:** Disable the reCAPTCHA on non-live environments. In Drupal 7, you can set the configuration key to be `NULL` in your `settings.php` file as follows:
+**Solution 2:** Disable the reCAPTCHA on non-live environments. In Drupal, you can set the configuration key to be `NULL` in your `settings.php` file as follows:
 
 ```php:title=settings.php
 // Deactivate reCAPTCHA not running on the live site.
@@ -327,7 +376,7 @@ ___
 
 **Issue 1:** When the module is configured to take over the public file system, Drupal's CSS/JS aggregation will not work unless you also upload Drupal Core and contrib modules to S3. See [Drupal Issue 2511090](https://www.drupal.org/project/s3fs/issues/2511090) for more information.
 
-**Issue 2:** Uploading files over 100MB through the Drupal file fields are still limited by the [Platform upload limitations](/platform-considerations#large-files).
+**Issue 2:** Uploading files over 100MB through the Drupal file fields are still limited by the [upload limitations](/guides/filesystem/large-files).
 
 ___
 
@@ -358,19 +407,23 @@ ___
 ___
 
 ## [Simple OAuth / OAuth 2.0](https://www.drupal.org/project/simple_oauth)
+<ReviewDate date="2024-06-12" />
 
-**Issue**: The module requires a very specific set of permissions for the folder and the keys to be uploaded. Using Private or non-standard filepaths won't work. It is not possible to change these in LIVE or TEST environment.
+**Issue**: This module requires a very specific set of permissions for the folder and the keys to be uploaded.
 
-**Solution**: You can try to patch the [permission check in the module](https://github.com/thephpleague/oauth2-server/blob/e184691ded987c00966e341ac09c46ceeae0b27f/src/CryptKey.php#L51). The alternative is to use off-site key management tools like [Lockr](https://www.drupal.org/project/lockr)
+**Solution**: Apply the following patches (which have been tested and validated by Pantheon), based on your site's PHP version, to solve for this issue:
+* [Oauth Permission Patch - Required to resolve Pantheon known issues (PHP 8.0+)](https://patch-diff.githubusercontent.com/raw/pantheon-systems/oauth2-server/pull/1.patch)
+* [Oauth Permission Patch - Required to resolve Pantheon known issues (PHP 7.4)](https://patch-diff.githubusercontent.com/raw/pantheon-systems/oauth2-server/pull/2.patch)
+
 ___
 
-## [Update Manager](https://www.drupal.org/docs/8/core/modules/update-manager) - Drupal 8/9 (core)
+## [Update Manager](https://www.drupal.org/docs/8/core/modules/update-manager) - Drupal 9 (core)
 
 <ReviewDate date="2021-03-17" />
 
 **Issue**: Sometimes, after a fresh system install, the **Manage** > **Extend** > **+ Install new module** and **Manage** > **Appearance** > **+ Install new theme** buttons are missing.
 
-This is a known bug in Drupal 8 and Drupal 9. Refer to Issue [#2350711](https://www.drupal.org/project/drupal/issues/2350711) for more information.
+This is a known bug in Drupal 9. Refer to Issue [#2350711](https://www.drupal.org/project/drupal/issues/2350711) for more information.
 
 **Solution**:
 
@@ -385,7 +438,7 @@ ___
 
 **Issue**: Conflicts with the existing platform configuration.
 
-**Solution**: Update Drupal performance settings to set the TTL and have the platform page cache serve requests. Refer to [Pantheon's Global CDN](/global-cdn) documentation. 
+**Solution**: Update Drupal performance settings to set the TTL and have the platform page cache serve requests. Refer to [Pantheon's Global CDN](/guides/global-cdn) documentation.
 ___
 
 ## [Views data export](https://www.drupal.org/project/views_data_export)

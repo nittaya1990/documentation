@@ -2,27 +2,19 @@
 title: WooCommerce Quick Start
 subtitle: Store Setup
 description: In step two of the WooCommerce Quick Start guide, learn how to set up your new store.
-woocommerce: true
-anchorid: store-setup
-generator: pagination
-layout: guide
-cms: "WordPress"
-categories: [get-started]
+contenttype: [guide]
+innav: [false]
+categories: [ecommerce]
+cms: [wordpress]
+audience: [development]
+product: [--]
+integration: [woocommerce]
 tags: [plugins, site]
 type: guide
-pagination:
-    provider: data.woocommercepages
-use:
-    - woocommercepages
 permalink: docs/guides/woocommerce/store-setup/
-nexturl: guides/woocommerce/configure/
-nextpage: Configure
-previousurl: guides/woocommerce/
-previouspage: Introduction
 editpath: woocommerce/02-store-setup.md
-image: guides/woocommerce/WooCommerce-logo-400-200
 ---
-I've already gone ahead and [created a new site on Pantheon](/guides/quickstart/create-new-site).
+I've already gone ahead and [created a new site on Pantheon](/guides/getstarted/addsite/).
 
 ![New Pantheon Site Dashboard](../../../images/guides/woocommerce/01-new-pantheon-site.png)
 
@@ -56,7 +48,7 @@ The first thing we should do is install WordPress and configure it.
 
    <Alert title="Note" type="info">
 
-   Jetpack is a sophisticated plugin that detects test sites. It will turn on [safe mode](https://jetpack.com/support/safe-mode/) and prevent the connection to WordPress.com. For this reason it's best to only activate Jetpack in the **<span class="glyphicons glyphicons-cardio"></span> Live** environment of your site and let it run in dev mode for your **<span class="glyphicons glyphicons-wrench"></span> Dev** and **<span class="glyphicons glyphicons-equalizer"></span> Test** environments.
+   Jetpack is a sophisticated plugin that detects test sites. It will turn on [safe mode](https://jetpack.com/support/safe-mode/) and prevent the connection to WordPress.com. For this reason it's best to only activate Jetpack in the **<Icon icon="wavePulse" /> Live** environment of your site and let it run in dev mode for your **<Icon icon="wrench" /> Dev** and **<Icon icon="equalizer" /> Test** environments.
 
    </Alert>
 

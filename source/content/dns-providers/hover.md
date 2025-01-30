@@ -1,13 +1,18 @@
 ---
 title: Hover Domain Configuration
 provider: Hover
-dnsprovider: true
 description: Learn how to point your Hover domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 draft: true
 permalink: docs/:basename
 editpath: dns-providers/hover.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [cloudflare, hover]
 ---
 ## Before You Begin
 Be sure that you have a:
@@ -34,14 +39,15 @@ Be sure that you have a:
 5. Click **Add Record**.
 6. Repeat steps 1-5 for the second AAAA record value provided by Pantheon. There are two AAAA records for improved uptime and reliability.
 
-### A Record for subdomain
-The A record is required if you wish to include `www` within your site's primary domain name.
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
 1. Select **A** from the dropdown menu.
 2. Enter **www** in the **Name** field and enter the A record value provided by Pantheon (e.g. `23.185.0.2`) in the **IPv4 Address** field.
 3. Set the TTL to **30 minutes**.
 4. Disable Cloudflare's CDN by clicking the cloud icon (should be gray, not orange).
 5. Click **Add Record**.
+6. Repeat steps 1-5 for the two AAAA records.
 
 ### TXT Record
 The TXT record is only required if you need to prove ownership of your domain in order to pre-provision certificates to avoid HTTPS service interruption.
@@ -58,4 +64,5 @@ The TXT record is only required if you need to prove ownership of your domain in
 ## Next Steps
 
 * [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 * [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

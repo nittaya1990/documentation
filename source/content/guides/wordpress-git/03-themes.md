@@ -2,16 +2,19 @@
 title: Using Git with SFTP & WordPress
 subtitle: Manage Themes
 description: Beginners guide on how to use the WordPress Dashboard, an SFTP client, and your text editor of choice to work quickly, safely and easily on Pantheon's Git-based platform.
-anchorid: themes
-layout: guide
-cms: "WordPress"
-categories: [develop]
+contenttype: [guide]
+innav: [false]
+categories: [git]
+cms: [wordpress]
+audience: [development]
+product: [--]
+integration: [--]
 tags: [git, sftp, themes]
 type: guide
 permalink: docs/guides/wordpress-git/themes/
 editpath: wordpress-git/03-themes.md
-image: git-sftp-wp-docs-guide
 reviewed: "2020-02-26"
+image: git-sftp-wp-docs-guide.png
 ---
 
 This lesson demonstrates how to utilize Git while developing over SFTP with a local file client and text editor. Often, premium plugins or themes need to be downloaded from the plugin provider and uploaded to your site. In this example, we will replicate that by uploading a new theme, creating a child theme, and then finally make some example customizations to the stylesheet -- all while submitting our work to version control along the way in sensibly grouped commits. ARE YOU UPDATING
@@ -20,13 +23,13 @@ This lesson demonstrates how to utilize Git while developing over SFTP with a lo
 
 1. Download the [Bento](https://wordpress.org/themes/bento/) theme from WordPress.org to your local machine.
 
-1. Navigate to **<span class="glyphicons glyphicons-embed-close" aria-hidden="true"></span> Code** in the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** tab of your Site Dashboard. Confirm your Connection Mode is still set to **SFTP**.
+1. Navigate to **<Icon icon="code" /> Code** in the **<Icon icon="wrench" /> Dev** tab of your Site Dashboard. Confirm your Connection Mode is still set to **SFTP**.
 
 1. Establish a secure connection from your local to Pantheon using an SFTP client of your choice (this guide uses [Transmit](https://panic.com/transmit/)).
 
   Click **Connect with SFTP** then select the link to **Open SFTP Client**:
 
-  ![Open in your default SFTP client](../../../images/guides/git-wordpress/sftp-connection-mode.png)
+  ![Open in your default SFTP client](../../../images/guides/git-wordpress/sftp-info.png)
 
   If you have already set up an SSH key, as recommended in the **Before You Begin** section of the [guide's introduction](/guides/wordpress-git/#before-you-begin), you should see a new window open for your SFTP client where you can see local files and remote files on Pantheon. In Transmit, local files are managed on the left and Pantheon's on the right:
 
@@ -44,7 +47,7 @@ This lesson demonstrates how to utilize Git while developing over SFTP with a lo
 
    1. Copy the value provided by Pantheon for **Host** and paste into Transmit's **Address** field. Do the same for **Port** and **Username**.
 
-   1. Click the key icon next to the **Password** field to add your private SSH key, or authenticate using your Pantheon Dashboard password.
+   1. Click the key icon next to the **Password** field to add your private SSH key.
 
    1. Click **Connect**:
 
@@ -123,7 +126,7 @@ The child theme inherits all the features of the Bento theme. It's simply a spot
 
  ### WP-CLI & Terminus
 
- You can do the exact same process from the command line using [Terminus](/terminus), the Pantheon CLI. Install Terminus, then run a WP-CLI command against the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** environment to create the child theme scaffold for you automatically. That's right, go from all the steps above to a one-liner to kick things into warp speed:
+ You can do the exact same process from the command line using [Terminus](/terminus), the Pantheon CLI. Install Terminus, then run a WP-CLI command against the **<Icon icon="wrench" /> Dev** environment to create the child theme scaffold for you automatically. That's right, go from all the steps above to a one-liner to kick things into warp speed:
 
  ```bash{promptUser: user}
  terminus wp <site>.<env> -- scaffold child-theme bento-child --parent_theme=bento
@@ -155,7 +158,7 @@ Finally, let’s make a few small customizations to our active child theme using
 
 1. Save the file changes in Atom.
 
-1. Refresh the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** environment's site URL and you should see your changes reflected. The header background should be salmon and the page should have deepskyblue anchors:
+1. Refresh the **<Icon icon="wrench" /> Dev** environment's site URL and you should see your changes reflected. The header background should be salmon and the page should have deepskyblue anchors:
 
   ![Site with New CSS changes](../../../images/guides/git-wordpress/new-css.png)
 

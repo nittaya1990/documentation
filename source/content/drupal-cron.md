@@ -1,11 +1,18 @@
 ---
 title: Cron for Drupal
 description: Understanding how Pantheon cron execution and cron management works on your Drupal site.
-cms: "Drupal"
+tags: [cron, D8, D9, D10]
+reviewed: "2020-12-13"
+permalink: docs/drupal-cron
+contenttype: [doc]
+innav: [true]
 categories: [automate]
-tags: [cron]
-reviewed: "2020-06-30"
+cms: [drupal]
+audience: [development]
+product: [localdev, newrelic, terminus]
+integration: [pingdom]
 ---
+
 Cron is a time-based task scheduler that can be configured to automatically execute tasks without any manual involvement beyond the initial configuration.
 
 Cron will always run unless all jobs are specifically set to 'Off' via Elysia or Ultimate Cron modules. Cron will also not run via Drush if a cron key is set with Elysia.
@@ -70,7 +77,7 @@ There are several workarounds. Most work by keeping the site awake, then using a
 
   By having Pingdom visit the site once a minute like a visitor, the site stays active and the Cron module has an opportunity to act every minute (if it needs to). This combination is not officially supported by Pantheon, but has worked for some of our customers.
 
-- A single-part solution is to [set up New Relic's Synthetics Ping Monitoring](https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/using-monitors/add-edit-monitors) to hit Cron URLs. You may still want to use [Elysia Cron](https://www.drupal.org/project/elysia_cron) or [Ultimate Cron](https://www.drupal.org/project/ultimate_cron) to schedule different cron tasks at different frequencies though.
+- A single-part solution is to [set up New Relic's Synthetics Ping Monitoring](/guides/new-relic/monitor-new-relic/#configure-ping-monitors-synthetics-for-availability) to hit Cron URLs. You may still want to use [Elysia Cron](https://www.drupal.org/project/elysia_cron) or [Ultimate Cron](https://www.drupal.org/project/ultimate_cron) to schedule different cron tasks at different frequencies though.
 
   One advantage of this approach is that your site may already have a New Relic instance associated with it, saving you from having to setup another third-party service.
 
@@ -90,9 +97,9 @@ To disable Drupal's standard cron:
 
   ![The cron settings in the Drupal admin interface, set to run cron "never".](../images/run-cron-config.png)
 
-### Drupal 7 and Elysia Cron
+### Drupal and Elysia Cron
 
-Drupal 7 sites using the [Elysia Cron](https://www.drupal.org/project/elysia_cron) contrib module to extend the standard cron can disable it globally in the module's settings:
+Drupal sites using the [Elysia Cron](https://www.drupal.org/project/elysia_cron) contrib module to extend the standard cron can disable it globally in the module's settings:
 
 ![Disable cron globally, including Elysia Cron and Drush invocations.](../images/disable_cron_elysia.png)
 
@@ -109,8 +116,8 @@ To disable triggering cron by page visits, adjust the value of **Run cron on vis
 The most common causes are:
 
 - Missing `sites/default/settings.php`
-- [PHP fatal errors](/php-errors)
-- [Invalid redirection logic in settings.php](/domains/#redirect-to-https-and-the-primary-domain)
+- [PHP fatal errors](/guides/php/php-errors)
+- [Invalid redirection logic in settings.php](/guides/domains)
 - Setting a cron key in Elysia Cron's settings: `admin/config/system/cron/settings`
 
 ### Can I trigger  cron externally on a locked site?
@@ -138,4 +145,5 @@ No. You can create a custom module that uses the [`hook_cron`](https://api.drupa
 ## Resources
 
 - [Drupal.org Community Documentation - Set up Cron](https://www.drupal.org/docs/7/setting-up-cron/overview)
-- [Elysia Cron - extends Drupal standard Cron](https://www.drupal.org/project/elysia_cron)
+- [Elysia Cron - extends Drupal standard Cron for Drupal](https://www.drupal.org/project/elysia_cron)
+- [Ultimate Cron - extends Drupal standard Cron for Drupal](https://www.drupal.org/project/ultimate_cron)

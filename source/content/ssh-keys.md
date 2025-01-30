@@ -1,18 +1,21 @@
 ---
 title: Generate and Add SSH Keys
 description: Understand how to generate SSH keys to configure Git, SFTP, or Drupal Drush.
-categories: [get-started]
 tags: [security, dashboard, ssh]
-reviewed: "2020-02-07"
+reviewed: "2022-03-04"
+contenttype: [doc]
+innav: [true]
+categories: [security, git, config]
+cms: [drupal, wordpress]
+audience: [development]
+product: [--]
+integration: [ssh, drush, sftp]
 ---
 
-To take full advantage of Pantheon, you should load your public SSH key into your account. SSH keys are a best practice for authentication, allowing you more security than a simple password. You will only need to do this once for each work environment (laptop, desktop, etc.), no matter how many sites you work on.
+SSH keys are a best practice for authentication and offer more security than a simple password.  SSH keys allow you to stay secure and compliant with security regulations, provided that you follow recommended guidelines to generate, store, manage, and remove your SSH keys.
 
-<Accordion title="Watch: Generate a SSH Key and Add it to Your Dashboard" id="ssh-video" icon="facetime-video">
-
-<Youtube src="U8sfuvrjroY" title="Generate a SSH Key and Add it to Your Dashboard" />
-
-</Accordion>
+You can take full advantage of Pantheon by loading your public SSH key into your account.
+You must add your SSH key once for each work environment (laptop, desktop, etc.), no matter how many sites you work on.
 
 <Alert title="Note" type="info">
 
@@ -20,83 +23,150 @@ Pantheon does not provide access to a shell environment over SSH. These directio
 
 </Alert>
 
-## Generate SSH Key
+## Generate an SSH Key
+
+Use the steps in this section to generate your SSH key.
+
+<Alert title="Note"  type="info" >
+
+Pantheon supports ECDSA and RSA SSH keys. Currently, we do not support `ed25519` keys.
+
+</Alert>
+
+<Accordion title="Watch: Generate a SSH Key and Add it to Your Dashboard" id="ssh-video" icon="facetime-video">
+
+<Youtube src="U8sfuvrjroY" title="Generate a SSH Key and Add it to Your Dashboard" />
+
+</Accordion>
+
+### MacOS/Linux
 
 1. Open your terminal and enter the following command to generate a key:
 
    ```bash{promptUser: user}
-   ssh-keygen
+   ssh-keygen -t rsa -m PEM
    ```
 
-  This command works on Linux, MacOS, and Windows 10.
+  Do not edit the default location of `~/.ssh/id_rsa` unless you have a reason to change it. If the command says the key already exists, you can either overwrite it, or continue to the next step with your existing key.
 
-1. Unless you have reason to change it, leave the default location of `~/.ssh/id_rsa`. If the command says the key already exists, you can either overwrite it or continue onto the next step with your existing key.
+1. Set a passphrase for better security.
 
-1. A passphrase is recommended to provide greater security, but can conflict with tools that cannot handle them.
+   We recommend using a passphrase, but it can conflict with some tools.
 
-1. Once the files are created, copy the contents of `~/.ssh/id_rsa.pub` to your clipboard.
+1. Copy the contents of `~/.ssh/id_rsa.pub` to your clipboard after the files are created.
 
-   Linux and Mac users can `cat`the file to the terminal and copy the output:
+   MacOS users can `cat`the file to the terminal and copy the output:
 
    ```bash{promptUser: user}
    cat ~/.ssh/id_rsa.pub
    ```
 
-   Windows users can achieve the same result with `type`:
+1. Run `eval` to start the SSH agent. The `Agent pid` output confirms that the agent started:
+
+      ```bash{outputLines: 2}
+      eval `ssh-agent`
+      Agent pid 86810
+      ```
+
+1. Add the newly created key to the ssh-agent:
+
+   ```bash{promptUser: user}
+   ssh-add ~/.ssh/id_rsa
+   ```
+
+### Windows
+
+1. Open your terminal and enter the following command to generate a key. This command works for Windows 10:
+
+   ```bash{promptUser: winshell}
+   ssh-keygen -t rsa -m PEM
+   ```
+
+  Do not edit the default location of `~/.ssh/id_rsa` unless you have a reason to change it. If the command says the key already exists, you can either overwrite it, or continue to the next step with your existing key.
+
+1. Set a passphrase for better security.
+
+   We recommend using a passphrase, but it can conflict with some tools.
+
+1. Copy the contents of `~/.ssh/id_rsa.pub` to your clipboard after the files are created.
 
    ```bash{promptUser: winshell}
    type .ssh\id_rsa.pub
    ```
 
+1.  Run `start-ssh-agent` to start the SSH agent. The output confirms the agent has started. Enter the passphrase, if it was previously set.
+
+      ```bash{promptUser: winshell}{outputLines: 2,3,5}
+      start-ssh-agent
+      Removing old ssh-agent sockets
+      Starting ssh-agent:  done
+      Enter passphrase for /c/Users/[user]/.ssh/id_rsa:
+      Identity added: /c/Users/[user]/.ssh/id_rsa ([user@machine_name])
+      ```
+
 ## Add Your SSH Key to Pantheon
 
 ### Add SSH Key - New Dashboard
 
-1. Log in to your Pantheon Dashboard, and go to the **SSH Keys** tab of your **User Profile's** [Personal Settings](/guides/new-dashboard/personal-settings) page.
+1. Log in to your Pantheon Dashboard.
 
-1. Click **Add New Key**.
+1. Click your user icon in the top right then click [Personal Settings](/personal-settings), and go to the **[SSH Keys](https://dashboard.pantheon.io/personal-settings/ssh-keys)** tab.
+
+1. If this is your first key, click **Get Started**, otherwise click **Add New Key**.
 
 1. Paste the copied public key into the box, and click **Save**.
 
-  ![Adding SSH Keys](../images/dashboard/new-dashboard/add-ssh-key-new-dashboard.png)
+  ![Adding SSH Keys](../images/dashboard/new-dashboard/2024/_add-ssh-key.png)
 
   Your computer is now set up to securely connect to the Pantheon Git server. You can view a list of available keys on the same page.
 
 ### Add SSH Key - Classic Dashboard
 
-1. Log in to your Pantheon Dashboard and go to the **<span class="glyphicons glyphicons-cogwheel"></span> Account** tab in your User Dashboard.
+1. Log in to your Pantheon Dashboard.
+
+1. Click your username in the top right, then select **My Dashboard**.
+
+1. Open the **<Icon icon="gear" /> Account** tab in your User Dashboard.
 
 1. Click **SSH Keys**.
 
-1. Paste the copied public key into the box, and click **Add Key**.
+1. Paste the copied public key into the **Add Key** box.
 
-  ![Adding SSH Keys](../images/dashboard/add-ssh-key-dashboard.png)
+1. Click the **Add Key** button.
 
   Your computer is now set up to securely connect to the Pantheon Git server. You can view a list of available keys on the same page.
 
 ### Clone Your Site Code
 
-1. In your Terminal environment, copy the **SSH clone URL** from the **Connection Info** of any site's Dev environment to clone your site code to your workstation.
+You can use your Dev environment to clone your site code to your workstation:
 
-1. If prompted, enter the passphrase you set above.
+1. Use Terminal to copy the **SSH clone URL** from the site's **Connection Info**.
+
+1. Enter the passphrase you set above, if prompted.
 
 ## Remove SSH Key from Pantheon
 
 ### Revoke SSH Key from Pantheon - New Dashboard
 
-To revoke a key, go to the **SSH Keys** tab of your **User Profile's** [Personal Settings](/guides/new-dashboard/personal-settings) page. Click the **Revoke** button next to the key you want to remove:
+1. Log in to your Pantheon Dashboard.
 
-![Revoke SSH Key](../images/dashboard/remove-ssh-key.png)
+1. Click your user icon in the top right then click [Personal Settings](/personal-settings), and go to the **[SSH Keys](https://dashboard.pantheon.io/personal-settings/ssh-keys)** tab.
+
+1. Click the **Revoke** button next to the key you want to remove:
+
+  ![Delete SSH Key](../images/dashboard/new-dashboard/2024/_revoke-ssh-key.png)
+
+1. Check the box in the confirmation prompt and click continue.
+
 
 ### Remove SSH Key from Pantheon - Classic Dashboard
 
-To delete a key, go to the **<span class="glyphicons glyphicons-cogwheel"></span> Account** tab of your User Dashboard and click **SSH Keys**. Click the **Remove** button next to the key you want to delete:
+1. Navigate to the **<Icon icon="gear" /> Account** tab of your User Dashboard and click **SSH Keys**.
 
-![Delete SSH Key](../images/dashboard/remove-ssh-key.png)
+1. Click the **Remove** button next to the key you want to delete:
 
 ### Site Access After Removing Keys
-
-If you have active sites and no keys remaining, you can still access the sites. Make site changes via SFTP or Git using your account password to authenticate. If you sign in through Google and haven't defined a password, you can set one on the [Reset Password](https://dashboard.pantheon.io/reset-password) page.
+After removing SSH Keys from your user account, you will not be able to interact with the application and codeservers directly through command line interfaces like Git, SFTP, WP-CLI, and Drush. However removing SSH keys is separate from revoking the machine tokens used by Terminus to perform actions (e.g., creating Multidev environments) that can otherwise be done in the Pantheon Site Dashboard.
 
 ## Troubleshooting
 
@@ -126,7 +196,7 @@ ControlMaster auto
 ControlPath ~/.ssh/control-%r
 ```
 
-If this doesn't fix the issue, try creating an entry in your SSH configuration for your site specifically by its hostname. Don't use the `ControlMaster` option, instead use the `ControlPath` line as shown below, replacing `SITE_UUID` with your [site's UUID](/sites/#site-uuid):
+If this doesn't fix the issue, try creating an entry in your SSH configuration for your site specifically by its hostname. Don't use the `ControlMaster` option, instead use the `ControlPath` line as shown below, replacing `SITE_UUID` with your [site's UUID](/guides/account-mgmt/workspace-sites-teams/sites#retrieve-the-site-uuis):
 
 ```none:title=ssh_config
 Host *.SITE_UUID.drush.in
@@ -145,7 +215,7 @@ Password requests may still occur after adding an SSH key to your Pantheon accou
 ssh-add -L | ssh-keygen -l -E md5 -f - | awk '{print substr($2,5)}'
 ```
 
-The resulting string should match one of the keys [listed in your User Dashboard](https://dashboard.pantheon.io/users/#account/ssh-keys).
+The resulting string should match one of the keys [listed in your Personal Settings](https://dashboard.pantheon.io/users/#account/ssh-keys).
 
 To resolve, add your SSH key to the ssh-agent using the following command, replacing `id_rsa` with the name of your private key, if different:
 
@@ -158,3 +228,9 @@ If you are using a Linux distribution such as Fedora 33 or later, make sure RSA 
 Host *.drush.in
   PubkeyAcceptedKeyTypes=ssh-rsa
 ```
+
+<Alert title="Note"  type="info" >
+
+ Pantheon does not have access to keys that only exist on the host machine. You must ensure that your keys and, if applicable, your key agent are made available to the application running in the container, if you're using Lando, Docksal, or DDEV.
+
+</Alert>

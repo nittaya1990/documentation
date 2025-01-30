@@ -1,141 +1,97 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import { MDXProvider } from "@mdx-js/react"
+import React from 'react';
+import { graphql } from 'gatsby';
+import GuideLayout from '../layout/GuideLayout';
+import SearchBar from '../layout/SearchBar';
 
-import Layout from "../layout/layout"
-import HeaderBody from "../components/headerBody"
+import SEO from '../layout/seo';
+import HeaderBody from '../components/headerBody';
+import TOC from '../components/toc';
+import GetFeedback from '../components/getFeedback';
 
-import Callout from "../components/callout"
-import Alert from "../components/alert"
-import Accordion from "../components/accordion"
-import ExternalLink from "../components/externalLink"
-import Icon from "../components/icon"
-import Popover from "../components/popover"
-import TabList from "../components/tabList"
-import Tab from "../components/tab"
-import TOC from "../components/toc"
-import GetFeedback from "../components/getFeedback"
-import Card from "../components/card"
-import CardGroup from "../components/cardGroup"
-import SEO from "../layout/seo"
-import Enablement from "../components/enablement"
-import Color from "../components/color.js"
-import Download from "../components/download"
-import Partial from "../components/partial"
-import Image from "../layout/image"
-import Example from "../components/styleExample"
-import DrushChangelog from "../components/drushChangelog"
-import ReviewDate from "../components/reviewDate"
-import Youtube from "../components/youtube"
-import ResourceSelector from "../components/resourceSelector"
-import DNSProviderDocs from "../components/dns-provider-docs.js"
-import Check from "../components/check.js"
+import { Container, SidebarLayout } from '@pantheon-systems/pds-toolkit-react';
 
-const shortcodes = {
-  Callout,
-  Alert,
-  Accordion,
-  ExternalLink,
-  Icon,
-  Popover,
-  TabList,
-  Tab,
-  Card,
-  CardGroup,
-  Enablement,
-  Color,
-  Download,
-  Partial,
-  Image,
-  Example,
-  DrushChangelog,
-  ReviewDate,
-  Youtube,
-  ResourceSelector,
-  DNSProviderDocs,
-  Check,
-}
+import MdxWrapper from '../components/mdxWrapper';
+import OmniSidebarNav from '../components/omniSidebarNav';
+
+// Set container width for search and main content.
+const containerWidth = 'standard';
 
 class DocTemplate extends React.Component {
-  componentDidMount() {
-    $("[data-toggle=popover]").popover({
-      trigger: "click",
-      placement: "right",
-    })
-
-    $("body").on("click", function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        if (
-          !$(this).is(e.target) &&
-          $(this).has(e.target).length === 0 &&
-          $(".popover").has(e.target).length === 0
-        ) {
-          $(this).popover("hide")
-        }
-      })
-    })
-
-    $("body").keyup(function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        if (event.which === 27) {
-          $(this).popover("hide")
-        }
-      })
-    })
-  }
-
   render() {
-    const node = this.props.data.doc
-    const isoDate = this.props.data.date
+    const node = this.props.data.doc;
+    const isoDate = this.props.data.date;
+
+    const ContainerDiv = ({ children }) => (
+      <div className="content-wrapper">{children}</div>
+    );
+    const ContentLayoutType = ContainerDiv;
+    let image = '/images/' + node.frontmatter.image;
+    if (image === '/images/null') {
+      image = '/images/default-thumb-doc.png';
+    }
 
     return (
-      <Layout>
+      <GuideLayout footerBorder>
         <SEO
+          slot="seo"
           title={node.frontmatter.title}
           description={node.frontmatter.description || node.excerpt}
           authors={node.frontmatter.contributors}
-          image={"/assets/images/default-thumb-doc.png"}
+          image={image}
           categories={node.frontmatter.categories}
           keywords={node.frontmatter.tags}
           reviewed={isoDate.frontmatter.reviewed}
           type={node.frontmatter.type}
         />
-        <main id="doc">
-          <div className="container doc-content-well">
-            <article className="doc article col-md-9 md-70" id="doc">
-              <HeaderBody
-                title={node.frontmatter.title}
-                subtitle={node.frontmatter.subtitle}
-                description={node.frontmatter.description}
-                slug={node.fields.slug}
-                contributors={node.frontmatter.contributors}
-                featured={node.frontmatter.featuredcontributor}
-                editPath={node.fields.editPath}
-                reviewDate={node.frontmatter.reviewed}
-                isoDate={isoDate.frontmatter.reviewed}
-                cms={node.frontmatter.cms}
-              />
-              <div style={{ marginTop: "15px", marginBottom: "45px" }}>
-                <MDXProvider components={shortcodes}>
-                  <MDXRenderer>{node.body}</MDXRenderer>
-                </MDXProvider>
-              </div>
-            </article>
-            <TOC title="Contents" />
-            <GetFeedback
-              formId="tfYOGoE7"
-              page={node.frontmatter.title}
-              topic={node.frontmatter.categories ? node.frontmatter.categories.toString() : null}
-            />
-          </div>
-        </main>
-      </Layout>
-    )
+
+        <OmniSidebarNav slot="guide-menu" activePage={node.fields.slug} />
+
+        <ContentLayoutType slot="guide-content">
+          <main id="docs-main" tabIndex="-1">
+            <Container
+              width={containerWidth}
+              className="pds-spacing-pad-block-end-4xl"
+            >
+              <SidebarLayout>
+                <article slot="content" className="doc article styleguide">
+                  <SearchBar slot="content" page="default" />
+
+                  <HeaderBody
+                    title={node.frontmatter.title}
+                    subtitle={node.frontmatter.subtitle}
+                    description={node.frontmatter.description}
+                    slug={node.fields.slug}
+                    contributors={node.frontmatter.contributors}
+                    featured={node.frontmatter.featuredcontributor}
+                    editPath={node.fields.editPath}
+                    reviewDate={node.frontmatter.reviewed}
+                    isoDate={isoDate.frontmatter.reviewed}
+                    cms={node.frontmatter.cms}
+                  />
+                  <div style={{ marginTop: '15px', marginBottom: '45px' }}>
+                    <MdxWrapper mdx={node.body} />
+                  </div>
+                </article>
+                <TOC slot="sidebar" title="Contents" />
+                <GetFeedback
+                  formId="tfYOGoE7"
+                  page={node.frontmatter.title}
+                  topic={
+                    node.frontmatter.categories
+                      ? node.frontmatter.categories.toString()
+                      : null
+                  }
+                />
+              </SidebarLayout>
+            </Container>
+          </main>
+        </ContentLayoutType>
+      </GuideLayout>
+    );
   }
 }
 
-export default DocTemplate
+export default DocTemplate;
 
 export const pageQuery = graphql`
   query DocBySlug($slug: String!) {
@@ -148,12 +104,12 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        image
         description
-        getfeedbackform
         categories
         cms
         contributors {
-          id
+          yamlId
           name
           twitter
           bio
@@ -162,6 +118,7 @@ export const pageQuery = graphql`
         }
         featuredcontributor
         reviewed(formatString: "MMMM DD, YYYY")
+        showtoc
         tags
         type
       }
@@ -173,4 +130,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

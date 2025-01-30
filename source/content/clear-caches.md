@@ -1,10 +1,16 @@
 ---
 title: Clearing Caches for Drupal and WordPress
 description: Learn how to clear cache for Drupal and WordPress sites on Pantheon's Global CDN.
-categories: [performance]
 tags: [cache, cdn]
+contenttype: [doc]
+innav: [true]
+categories: [cache]
+cms: [drupal7, wordpress]
+audience: [development]
+product: [cdn]
+integration: [--]
 ---
-Pantheon extends the core functionality of caching mechanisms within WordPress and Drupal so that caches are cleared within the site's frame and from our [Global CDN](/global-cdn) service.
+Pantheon extends the core functionality of caching mechanisms within WordPress and Drupal so that caches are cleared within the site's frame and from our [Global CDN](/guides/global-cdn) service.
 
 ## Granular Cache Clearing
 Use the Pantheon Advanced Page Cache [plugin](https://wordpress.org/plugins/pantheon-advanced-page-cache/) or [module](https://www.drupal.org/project/pantheon_advanced_page_cache) to automatically clear caches for related pages as content is updated. No configuration needed, simply install and enable to take advantage of the granular cache clearing capabilities of the Global CDN.
@@ -18,10 +24,10 @@ We refer to this as "full cache clearing" because the operation removes all page
 - Site Admin
 - Command Line
 
-**Note:** To clear the Object cache, please see our [Object Cache](/object-cache#clear-cache) doc.
+**Note:** To clear the Object cache, please see our [Object Cache](/object-cache/cli#clear-cache) doc.
 
 ### Pantheon Dashboard
-1. Navigate to the Site Dashboard and select the desired environment.
+1. [Go to the Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the desired environment.
 2. Click the **Clear Caches** button:
 
   ![Clear Cache Button](../images/clear-cache-button.png)
@@ -32,36 +38,25 @@ We refer to this as "full cache clearing" because the operation removes all page
 
 <Tab title="WordPress" id="wp-1" active={true}>
 
-1. Navigate to the Site Dashboard and select the desired environment.
-2. Click the **<span class="glyphicons glyphicons-new-window-alt"></span> Visit Site** button and login.
+1. [Go to the Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the desired environment.
+2. Click the <Icon icon="externalLink" /> **Visit Site** button and login.
 3. Navigate to **Settings** > **Pantheon Page Cache**, then click **Clear Cache**:
 
   ![WordPress Clear Caches](../images/wp-cc.png)
 
 </Tab>
 
-<Tab title="Drupal 8" id="d8-2">
+<Tab title="Drupal" id="d7-3">
 
-1. Navigate to the Site Dashboard and select the desired environment.
-2. Click the **<span class="glyphicons glyphicons-new-window-alt"></span> Visit Site** button and login.
-3. Navigate to **Configuration** > **Development** > **Performance**, then click **Clear all caches**:
-
-  ![Drupal 8 Clear Caches](../images/d8-cc.png)
-
-</Tab>
-
-
-<Tab title="Drupal 7" id="d7-3">
-
-1. Navigate to the Site Dashboard and select the desired environment.
-2. Click the **<span class="glyphicons glyphicons-new-window-alt"></span> Visit Site** button and login.
+1. [Go to the Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the desired environment.
+2. Click the <Icon icon="externalLink" /> **Visit Site** button and login.
 3. Ensure the [Pantheon Platform API](/modules#pantheon-module-drupal-7) module is enabled:
 
   ![Pantheon Platform API module](../images/pantheon-platform-api-enabled.png)
 
 4. Navigate to **Configuration** > **Development** > **Performance**, then click **Clear all caches**:
 
-  ![Drupal 7 Clear Caches](../images/d7-cc.png)
+  ![Drupal Clear Caches](../images/d7-cc.png)
 
 </Tab>
 
@@ -87,10 +82,11 @@ Some good troubleshooting first steps include:
  - Commenting out redirections in `settings.php`, `wp-config.php`, or elsewhere.
 
  - Resolve any fatal PHP errors.
- 
+
  - Isolate which plugin or module may be causing the issue by turning them all off, then turning on one by one.
- 
+
  - Check if the issue is theme related by using an unmodified default theme like [Bartik](https://www.drupal.org/project/bartik) or [Twenty Nineteen](https://wordpress.org/themes/twentynineteen/).
 
 ### Cache Is Cleared from Dashboard and Application but New Changes Are Not Visible
-This usually happens when using a 3rd Party CDN on top of Pantheon like Cloudflare, Stackpath, etc. Try clearing the cache from the 3rd-party CDN's dashboard.
+
+This usually happens when using a 3rd-party CDN on top of Pantheon like Cloudflare, Stackpath, etc.. Try clearing the cache from the 3rd-party CDN's dashboard.

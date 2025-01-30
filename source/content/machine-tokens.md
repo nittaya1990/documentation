@@ -1,14 +1,20 @@
 ---
 title: Creating and Revoking Machine Tokens
 description: Learn how to create a machine token in order to use Terminus on your Drupal or WordPress site.
-categories: [integrate]
 tags: [sso, security, terminus]
 reviewed: "2020-12-09"
+contenttype: [doc]
+innav: [true]
+categories: [security]
+cms: [drupal, wordpress]
+audience: [development]
+product: [--]
+integration: [--]
 ---
 
 Machine tokens are used to uniquely identify your machine and securely authenticate via [Terminus](/terminus).
 
-Machine tokens:  
+Machine tokens:
 
 - Provide the same access as your username and password
 - Do not expire
@@ -17,7 +23,7 @@ Machine tokens:
 
 ## Create a Machine Token
 
-1. From your User Dashboard, click **Account**, and select [Machine Tokens](https://dashboard.pantheon.io/users/#account/tokens/).
+1. [Go to your Personal Settings](/personal-settings) and select [Machine Tokens](https://dashboard.pantheon.io/personal-settings/machine-tokens).
 
 1. Click **Create Token**.
 
@@ -57,7 +63,7 @@ terminus auth:login --email <email@example.com>
 
 For security purposes, we recommend removing tokens from your account when they are no longer used.
 
-1. From your User Dashboard, click **Account**, and select [Machine Tokens](https://dashboard.pantheon.io/users/#account/tokens/).
+1. [Go to your Personal Settings](/personal-settings) and select [Machine Tokens](https://dashboard.pantheon.io/personal-settings/machine-tokens).
 
 1. Locate the token you want to delete, and click **Revoke Token**.
 
@@ -83,6 +89,6 @@ The following token names are not allowed, and will be automatically renamed to 
 - pantheonHud
 - pantheon-hud
 
-## See Also
+## More Resources
 
 [The Ins and Outs of Token-Based Authentication](https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication)

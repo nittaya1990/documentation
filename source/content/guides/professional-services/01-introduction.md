@@ -1,14 +1,18 @@
 ---
 title: Pantheon Professional Services
 subtitle: Introduction
-description: Pantheon Professional Services include consulting, migrations, load testing, training, AGCDN, Managed Updates, and dedicated Customer Success Managers.
-categories: [develop]
+description: Pantheon Professional Services include consulting, migrations, load testing, application performance and architecture, training, AGCDN, Managed Updates, and dedicated Customer Success Managers.
+contenttype: [guide]
+innav: [true]
+categories: [help]
+cms: [--]
+audience: [development, sysadmin]
+product: [--]
+integration: [--]
 tags: [services, migration, AGCDN, managed updates]
 reviewed: "2021-04-01"
-layout: guide
 showtoc: true
 permalink: docs/guides/professional-services
-anchorid: professional-services
 editpath: professional-services/01-introduction.md
 ---
 
@@ -56,6 +60,10 @@ Visit our [Advanced Global CDN](/guides/professional-services/advanced-global-cd
 
 Load tests can be critical steps in ensuring a successful launch. See [Onboarding Services Pre-Launch Load Testing](/guides/professional-services/onboarding#pre-launch-load-testing) for details.
 
+## Application Performance and Architecture
+
+The Application Performance and Architecture team provides frontend and backend assistance with your WordPress and Drupal applications. Refer to [Application Performance and Architecture](/guides/professional-services/application-performance) for details.
+
 ## Professional Service Hours (formerly CAS)
 
 Ad hoc solutions to ensure the success of your application on Pantheon. Typically scoped on an hourly basis and provided by our Engagement Managers at Pantheon. [Contact us](https://pantheon.io/professional-services?docs) for details.
@@ -68,7 +76,7 @@ The following services are not fulfilled by the Professional Services team but a
 
 ### Customer Success Management
 
-Pantheon Customer Success Managers (**CSMs**) work proactively with you, helping you build agile website operations, achieve business goals, adopt best practices, and stay ahead of the competition. A dedicated CSM is included with all Diamond Accounts and is available as an add-on for Gold and Platinum Accounts. Your dedicated CSM meets with you regularly to provide site performance audits, review team usage of the platform, extend early access to new features, and ensure that you are getting the most value possible from the platform. [Contact us](https://pantheon.io/contact-us) for details.
+Pantheon Customer Success Managers (**CSMs**) work proactively with you, helping you build agile website operations, achieve business goals, adopt best practices, and stay ahead of the competition. A dedicated CSM is included for all Enterprise (contract) Accounts. Your dedicated CSM meets with you regularly to provide site performance audits, review team usage of the platform, extend early access to new features, and ensure that you are getting the most value possible from the platform. [Contact us](https://pantheon.io/contact-us) for details.
 
 ### Expert Training
 

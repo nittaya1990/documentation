@@ -2,29 +2,21 @@
 title: WooCommerce Quick Start
 subtitle: Configure
 description: In step three of the WooCommerce Quick Start guide, learn how to configure your new store.
-woocommerce: true
-anchorid: configure
-generator: pagination
-layout: guide
-cms: "WordPress"
-categories: [get-started]
+contenttype: [guide]
+innav: [false]
+categories: [ecommerce]
+cms: [wordpress]
+audience: [development]
+product: [--]
+integration: [woocommerce]
 tags: [plugins, site]
 type: guide
-pagination:
-    provider: data.woocommercepages
-use:
-    - woocommercepages
 permalink: docs/guides/woocommerce/configure/
-nexturl: guides/woocommerce/commit/
-nextpage: Commit Changes
-previousurl: guides/woocommerce/store-setup/
-previouspage: Store Setup
 editpath: woocommerce/03-configure.md
-image: guides/woocommerce/WooCommerce-logo-400-200
 ---
 We've configured a few things for our WooCommerce site. But there are a few additional things to configure.
 
-The first is [adding PHP sessions to WordPress](/wordpress-sessions). WordPress and WooCommerce core do not use PHP Sessions, but other plugins and extensions may.
+The first is [adding PHP sessions to WordPress](/guides/php/wordpress-sessions). WordPress and WooCommerce core do not use PHP Sessions, but other plugins and extensions may.
 
 To enable PHP Sessions on Pantheon, install [WP Native PHP Sessions](https://wordpress.org/plugins/wp-native-php-sessions/). It's a free plugin you can download from WordPress.org or install through your WordPress dashboard.
 

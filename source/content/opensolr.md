@@ -1,18 +1,25 @@
 ---
 title: Using Opensolr With Pantheon Sites
 description: Learn how to create and configure Opensolr with Solr for advanced search indexing features for your Drupal sites.
-categories: [integrate]
 tags: [modules, solr]
-contributors: [carolynshannon]
-reviewed: "2019-11-06"
+contributors: [joan-ing, carolynshannon]
+reviewed: "2022-02-28"
+contenttype: [doc]
+innav: [true]
+categories: [search]
+cms: [drupal, wordpress]
+audience: [development]
+product: [--]
+integration: [--]
 ---
 
 ## Overview
 
 Apache Solr is a system for indexing and searching site content. Pantheon provides [Apache Solr](/solr) as a service that works well for the majority of sites on the platform. No permission or action is required from Pantheon to use Solr.
+
 <Partial file="solr-version.md" />
 
-However, If you are looking for additional features for more advanced use cases, you may want to consider an external Solr service.
+However, if you are looking for additional features for more advanced use cases, you may want to consider an external Solr service.
 
 The [Opensolr](https://www.opensolr.com/) service offers a number of features including:
 
@@ -23,191 +30,133 @@ The [Opensolr](https://www.opensolr.com/) service offers a number of features 
 - JTS Polygonal geo-spatial search
 - REST-like API
 
-This doc covers Opensolr configuration for Drupal sites. For WordPress-Opensolr integration, see Opensolr's [WPSolr Integration](https://opensolr.com/faq/view/wpsolr) tutorial.
+This document covers Opensolr configuration for Drupal sites. For WordPress-Opensolr integration, see Opensolr's [WPSolr Integration](https://opensolr.com/faq/view/wpsolr) tutorial.
 
 ## Before You Begin
 
-This doc assumes that you have already enabled:
+Make sure you have already enabled:
 
-- **Drupal 7** the [ApacheSolr](https://www.drupal.org/project/apachesolr) module
-- **Drupal 8** the [Search API Solr](https://www.drupal.org/project/search_api_solr) module using Composer (required by Search API Solr to manage dependencies). 
-
-<Alert title="Note" type="info">
-
-To get started managing Drupal 8 using Composer, follow the [Convert to Composer](/guides/composer-convert) guide.
-
-</Alert>
+* **Drupal 7:** the [Apache Solr Search](https://www.drupal.org/project/apachesolr) module
+* **Drupal (Latest Version):** the [Search API Solr](https://www.drupal.org/project/search_api_solr) module using Composer, which is required by Search API Solr to manage dependencies.
 
 ## Create a New Index
 
-After you have signed up at [Opensolr.com](https://www.opensolr.com/), log in and click **My Indexes**, then click **Add New**.
+1. Register at [Opensolr.com](https://www.opensolr.com/) and log in to your Opensolr account.
 
-![Add new Opensolr index](../images/opensolr-index-add.png)
+1. Click **My Indexes** to display the drop-down menu.
+
+1. Click **Add New**.
+
+The **Select Your Opensolr Environment** page is displayed and you can either choose an existing environment or request a new environment.
 
 ## Set Up the Index
 
 To create your index:
 
-1. From the **Version** list on the left, select the environment's SOLR version
+1. Open the **Version** list on the left navigation panel, and select the environment's Solr version.
 
-1. Select your preferred region
+1. Select your preferred region.
 
-1. Choose a name for your index
+1. Enter a name for your index in the **Index Name** field. The name must be unique and cannot already exist.
 
-After filling out the appropriate fields, click **Add Index** to create your index. You will then see a card on your dashboard for your index. Click on the index name to go to the overview page for your index. From this page, copy the following information before moving forward:
+1. Fill out the appropriate fields, and then click **Add Index** to create your index. You will then see a card on your dashboard for your index.
 
-1. **Port**
+1. Click the index name to go to the **Overview** page for your index.
 
-1. **Path**
+1. Copy the following information before moving forward:
 
-1. **Hostname**
+    * Port
+    * Path
+    * Hostname
+    * Connection URL
 
-1. **Connection URL**
+## Configure the Solr Module
 
-## Set up Index Security
+### Configure Drupal’s Apache Solr Module (Drupal 7)
 
-If you are using Drupal 8 and the Search API module, you need to setup (or disable) HTTP authentication for your Opensolr servers. The ApacheSolr module for Drupal 7 does not support HTTP auth. To do this:
+To get your index working with a Drupal site. Set configuration options in the Apache Solr module.
 
-1. Click the Security link in the left column of the Opensolr dashboard.
-1. To configure, enter a username and password, then click **Save**. Write it down, as you will need to enter this username and password on the Drupal Search API Add Server form.
+1. Access the Apache Solr Settings page by appending the following to your site’s URL:
 
-  <Alert type="info" title="Note">
+  ```none
+  admin/config/search/apachesolr/settings/solr/edit?destination=admin/config/search/apachesolr/settings/solr
+  ```
+1. Provide the following information to configure Apache Solr:
 
-  Opensolr will remove any special characters, including dashes (`-`) from the username and password.
+    * **ServerURL:** Paste the Connection URL from Opensolr.
+    * **Description:** Briefly describe your index.
 
-  </Alert>
-
-1. To remove HTTP Authentication, Click **Remove HTTP Auth**
-
-## Configure Solr Module
-
-<TabList>
-
-<Tab title="Drupal 7" id="d7-solr">
-
-### Configure Drupal’s ApacheSolr Module
-
-To get your index working with a Drupal site, set some configuration options in the ApacheSolr module. You can quickly reach the ApacheSolr settings page by appending the following to your site’s URL:
-
-```none
-admin/config/search/apachesolr/settings/solr/edit?destination=admin/config/search/apachesolr/settings/solr
-```
-
-Provide two items to the ApacheSolr configuration:
-
-1. **ServerURL:** Paste the Connection URL from Opensolr here.
-
-1. **Description:** Briefly describe your index here.
-
-When you've finished, click **Save**.
+1. Click **Save** when you are finished.
 
 <Alert title="Warning" type="danger">
-
 A schema must be pushed in each environment (Dev/Test/Live).
-
 </Alert>
 
 ### Test Your New Solr Connection
 
-Now that you created the index and configured the ApacheSolr Drupal module to point to the new index, test the connection and make sure ApacheSolr can communicate with the Opensolr index.
+Now that you have created the index and configured the ApacheSolr Drupal module to point to the new index, test the connection to ensure Apache Solr can communicate with the Opensolr index.
 
-Go to `admin/config/search/apachesolr/settings` and click on your index.
+1. Go to `admin/config/search/apachesolr/settings`
 
-To test the connection, click **Test Connection**.
+1. Click your index.
 
-If Drupal returns a success message like **“Your site has contacted the Apache Solr server”**, you have successfully set up your index. If not, go back and complete the configuration steps above.
+1. Click **Test Connection**.
 
-</Tab>
+If Drupal returns a message such as “Your site has contacted the Apache Solr server”, you have successfully set up your index. If not, go back and retry the configuration steps above.
 
-<Tab title="Drupal 8" id="d8-solr" active={true}>
+## Configure Drupal’s Search API Solr and Search API Opensolr Modules (Drupal Latest Version)
 
-### Configure Drupal’s Search API Module
+### Setup Opensolr Connection in Search API Opensolr
 
-To get your index working with a Drupal 8 site, set some configuration options in the Search API module. You can quickly reach the Search API settings page by appending the following to your site’s URL:
+1. Navigate to the **OpenSolrConfig Form**.
 
-```none
-admin/config/search/search-api/add-server?destination=admin/config/search/search-api
-```
+1. Enter your Opensolr API credentials. You must provide a login name and secret key. A secret key is provided in the drop-down menu after you configure your credentials.
 
-Provide these items to the Search API Search configuration:
+To setup a secret key, the API key must be retrieved from the Opensolr dashboard.
 
-1. **Server Name:** Enter the name for the server; including the name Opensolr is a helpful hint here.
+<Alert title="Warning" type="danger">
 
-1. Under **Backend**, choose "Solr".
-
-1. **Solr Connector:** If you enabled HTTP Auth in Opensolr, choose Basic Auth. If you disabled it, choose Standard.
-
-1. **HTTP protocol:** HTTPS
-
-1. **Solr host:** Hostname from your Opensolr connection info page.
-
-1. **Solr port:** Port copied from your Opensolr connection info page.
-
-1. **Solr path:** `/solr`. Depending on the server provider, this may need to remain blank. See Opensolr's [Connection Issues FAQ](https://opensolr.com/faq/view/external-integration-issues/108/Connection-URL-not-found) for more information.
-
-1. **Solr core:** The name you gave your Solr core on the Opensolr connection info page.
-
-<Alert title="Note" type="info">
-
-If you chose **Basic Auth**, you will see a section for HTTP Basic Authentication. Enter the username and password values from your Opensolr Index Security page.
+Do not click **Generate a New API Key** in the Opensolr dashboard. It does not confirm the action and immediately changes the API key for the account, which impacts the indexes of all the environments. If you clicked **Generate a New API Key** , you must add the newly generated API key to the secret key storage.
 
 </Alert>
 
-Leave everything else with default values provided and click **Save**.
-On the resulting Search API server configuration page, you should see messages indicating the Server and Core connections were successful:
+### Setting up Opensolr server in Drupal’s Search API Solr
 
-![Solr and Core connections success message for Drupal 8](../images/msg-config-success.png)
+1. Go to the Search API Configuration page, `/admin/config/search/search-api` to create a new server.
 
-### Add Search API Solr Configuration Files to Opensolr
+1. Click **Add server**.
 
-Your Opensolr server now needs the Search API Solr `schema.xml` and other configuration files. These are located in [your site code](/code) under `module/contrib/search_api_solr/solr_conf`, in a sub-directory according to the Solr version you are using on Opensolr.
+1. Test that you've successfully established connection to Opensolr by selecting Solr as a back-end, then select Opensolr with Basic Auth as the authentication method. You will automatically be presented with a drop-down menu of all your existing indexes on Opensolr.
 
-1. Create a zip archive of the files in your Solr version's directory. To do this from the CLI:
+### Set up Opensolr index in Drupal’s Search API Solr
 
-  ```bash{outputLines: 1}
-  # From the solr version directory
-  zip ~/solrconfig.zip ./*
-  ```
+You can set up an index through the Search API Configuration page (`/admin/config/search/search-api`).
 
-  The resulting zip file will be in your home folder.
+### Test Your New Solr Connection
 
-1. Go to the Opensolr instance, and click on the "Configuration" tab.
+Now that you have created the server and index, and configured the Search API Opensolr and Search API Solr Drupal module, test the connection and ensure your site can communicate with the Opensolr index.
 
-1. Upload the zip archive.
+1. Go to `/admin/config/search/search-api`
 
-### Add Search Index and Fields
-
-Now that you've created the server connection, add an index by visiting `admin/config/search/search-api` and clicking on the **Add index** button. Provide the information about your index:
-
-1. **Index name**: The displayed name you wish to give the index.
-
-1. **Datasources**: In this section, check the boxes corresponding to the entities you want indexed and available for searching. Configure each Datasource selected to indicate which items should be included in the index.
-
-1. **Server**: Select the Opensolr server you just configured.
-
-When you have finished, click **Save**.
-
-Next, add the fields your index should include for indexing.
-
-1. Click on the **Fields** tab for your search index, then click the **Add fields** button.
-
-1. Select the fields to include in your index.
-
-1. When you have finished, be sure to click **Save changes**.
-
-</Tab>
-
-</TabList>
+1. Click your index. Your connection is successful if the indexing works.
 
 ## Customize Your Configuration
 
-If you'd like to create custom configurations or manually edit your index, synonyms list, stopwords, etc., you can do so by clicking on the **Configuration** icon on your Opensolr Search Index's Tools page, then selecting the configuration file you wish to edit.
+You can create custom configurations or manually edit your:
 
-![Opensolr configuration file editor page](../images/opensolr-config-files-editor.jpg)
+- Index
+- Synonyms list
+- Stop words
 
-## See Also
+1. Go to your **Opensolr Search Index's Tools** page.
+
+1. Click **Configuration**, then select the configuration file you want to edit.
+
+## More Resources
 
 - [Drupal ApacheSolr Module](https://drupal.org/project/apachesolr) 
+- [Drupal Search API Solr Module](https://www.drupal.org/project/search_api_solr) 
+- [Drupal Search API Opensolr Module](https://www.drupal.org/project/search_api_opensolr) 
 - [WPSolr Integration](https://opensolr.com/faq/view/wpsolr)
 - [Opensolr](https://www.opensolr.com/)
 - [Opensolr Support](https://www.opensolr.com/faq)

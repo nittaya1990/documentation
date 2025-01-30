@@ -1,15 +1,13 @@
 import React from "react"
-import "./style.css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { fab } from "@fortawesome/free-brands-svg-icons"
-import { faSlack } from "@fortawesome/fontawesome-free-brands"
+import { Icon } from "@pantheon-systems/pds-toolkit-react"
 
 const Slack = () => {
   return (
-    <a className="btn btn-slack fa" href="https://slackin.pantheon.io/">
-      {" "}
-      <FontAwesomeIcon icon={faSlack} size="1x" className="fa" /> Discuss in
-      Slack
+    <a
+      className="pds-button pds-button--secondary pds-button--sm"
+      href="https://slackin.pantheon.io/"
+    >
+      <Icon iconName="slack" /> Discuss in Slack
     </a>
   )
 }

@@ -2,16 +2,19 @@
 title: Using Git with SFTP & WordPress
 subtitle: Upload Media
 description: Beginners guide on how to use the WordPress Dashboard, an SFTP client, and your text editor of choice to work quickly, safely and easily on Pantheon's Git-based platform.
-anchorid: media
-layout: guide
-cms: "WordPress"
-categories: [develop]
+contenttype: [guide]
+innav: [false]
+categories: [git]
+cms: [wordpress]
+audience: [development]
+product: [--]
+integration: [--]
 tags: [files, git, sftp]
 type: guide
 permalink: docs/guides/wordpress-git/media/
 editpath: wordpress-git/04-media.md
-image: git-sftp-wp-docs-guide
 reviewed: "2020-02-26"
+image: git-sftp-wp-docs-guide.png
 ---
 
 In this lesson, we'll demonstrate how media files are handled on Pantheon. Media refers to anything in the `wp-content/uploads/` directory, which is intentionally excluded from version control. Git isn't needed to manage content like this, so we won't use version control in this lesson.
@@ -20,13 +23,13 @@ In this lesson, we'll demonstrate how media files are handled on Pantheon. Media
 
   ![New Logo](../../../images/guides/git-wordpress/logo-wp-git-demo.png)
 
-1. Within the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** environment's WordPress Dashboard, navigate to **Appearance** > **Customize** > **Site Identity** then upload a new logo.
+1. Within the **<Icon icon="wrench" /> Dev** environment's WordPress Dashboard, navigate to **Appearance** > **Customize** > **Site Identity** then upload a new logo.
 
 1. Click **Save and Publish**:
 
   ![Uploaded Logo](../../../images/guides/git-wordpress/logo-upload.png)
 
-1. Refresh the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** environment's site URL and you should see your changes reflected.
+1. Refresh the **<Icon icon="wrench" /> Dev** environment's site URL and you should see your changes reflected.
 
   If you expected this change to show up as a pending change, ready to be committed - that's not how this kind of content works. It's not code; there won't be any changes in the Pantheon Site Dashboard to submit to version control since media is ignored by Git.
 

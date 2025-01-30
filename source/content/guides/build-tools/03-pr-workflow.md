@@ -2,15 +2,19 @@
 title: Build Tools
 subtitle: Pull Request/Merge Request Workflow
 description: In step three of the Build Tools guide, learn how to use pull requests as part of your workflow.
-categories: [develop]
 tags: [collaborate, continuous-integration, git, webops, workflow]
-buildtools: true
-anchorid: pr-workflow
 type: guide
 permalink: docs/guides/build-tools/pr-workflow/
 editpath: build-tools/03-pr-workflow.md
-image: buildToolsGuide-thumb
 reviewed: "2020-05-08"
+contenttype: [guide]
+innav: [false]
+categories: [git]
+cms: [--]
+audience: [development]
+product: [--]
+integration: [--]
+image: buildToolsGuide-thumb.png
 ---
 
 ## Pull Request/Merge Request Introduction
@@ -19,7 +23,7 @@ This section demonstrates the Build Tools project workflow by making a code chan
 
 As a reminder, these examples use GitHub as the code repository with CircleCI as the CI. CircleCI builds the full site artifact and deploys it to the project's Pantheon site. Substitute the Git provider and CI below with the right ones for your project.
 
-Branches with an associated pull request are built and deployed to a [Pantheon Multidev environment](/multidev), with the pull request number being used to construct the Multidev name. For example, pull request `12` will be deployed to a Pantheon Multidev named `pr-12`.
+Branches with an associated pull request are built and deployed to a [Pantheon Multidev environment](/guides/multidev), with the pull request number being used to construct the Multidev name. For example, pull request `12` will be deployed to a Pantheon Multidev named `pr-12`.
 
 The `master` branch is automatically built and deployed to the Pantheon `dev` environment. This happens both when you commit code directly to the `master` branch and when a pull request is merged into the `master` branch.
 
@@ -29,7 +33,7 @@ Deployments to the `test` and `live` environments on Pantheon must still be done
 
 ## Create a Pull Request
 
-1. From your GitHub project page, click on the `config` directory. Select the file `system.site.yml` and click <span class="glyphicon glyphicon-pencil"></span> to open an editor:
+1. From your GitHub project page, click on the `config` directory. Select the file `system.site.yml` and click <Icon icon="pen" /> to open an editor:
 
   ![system.site.yml file open in GitHub](../../../images/pr-workflow/system-site-config.png)
 

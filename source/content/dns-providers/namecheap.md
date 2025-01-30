@@ -1,12 +1,17 @@
 ---
 title: Namecheap Domain Configuration
 provider: Namecheap
-dnsprovider: true
 description: Learn how to point your Namecheap domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 permalink: docs/:basename
 editpath: dns-providers/namecheap.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [--]
 ---
 ## Before You Begin
 Ensure you have the following:
@@ -18,17 +23,15 @@ Ensure you have the following:
 ## Locate Pantheon's DNS Values
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. Navigate to the [Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 1. Click **Details**.
 
 Keep this page open and log in to your [Namecheap account](https://www.namecheap.com/myaccount/login.aspx) in a new tab before you continue.
 
 ## Verify the Domain to Add HTTPS
-When entering the value for the Name/Host, the bare domain and trailing dot (".") must be removed from the value provided by Pantheon. For example, the value entered in the **Name/Host** field for the Namecheap Advanced DNS configuration should look like `_name-sample`, or in the case of a subdomain, like `_name-sample.subdomain` where the subdomain is replaced with a specific subdomain. 
+When entering the value for the Name/Host, the bare domain and trailing dot (".") must be removed from the value provided by Pantheon. For example, the value entered in the **Name/Host** field for the Namecheap Advanced DNS configuration should look like `_name-sample`, or in the case of a subdomain, like `_name-sample.subdomain` where the subdomain is replaced with a specific subdomain.
 
 After completing the fields on the page, click **Verify Ownership**.
-
-You can click **Skip without HTTPS** to skip verification. By skipping, vistors to your site will receive a browser warning until Pantheon automatically provisions HTTPS, which can take approximately one hour after going live.  
 
 ## Configure DNS Records on Namecheap
 
@@ -53,20 +56,22 @@ You can click **Skip without HTTPS** to skip verification. By skipping, vistors 
 
 ### AAAA Records
 1. From the **Advanced DNS** tab, click **Add New Record**.
-1. Select **AAAA Record** for _Type_. 
+1. Select **AAAA Record** for _Type_.
 2. Enter `@` in the **Host** field and enter the first _AAAA record value_ provided by Pantheon in the **Value** field.
 3. Select the desired Time to Live (TTL).
 4. Click **Save changes**.
 5. Repeat steps 1-4 for the second _AAAA record value_ provided by Pantheon. There are two AAAA records for improved uptime and reliability.
 
-### A Record for subdomain
-An _A record_ is required to configure a subdomain (e.g., `www.example.com`).
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
 1. From the **Advanced DNS** tab, click **Add New Record**.
-1. Select **A Record** for the _Type_. 
+1. Select **A Record** for the _Type_.
 1. Enter `www` in the **Host** field and enter the _A record value_ provided by Pantheon (e.g. `23.185.0.2`) in the **Value** field.
 1. Select the desired Time to Live (TTL).
 1. Click **Save changes**.
+1. Repeat steps 1-5 for the two AAAA records.
+
 
 ## Namecheap Docs
 
@@ -75,4 +80,5 @@ An _A record_ is required to configure a subdomain (e.g., `www.example.com`).
 ## Next Steps
 
 * [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 * [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

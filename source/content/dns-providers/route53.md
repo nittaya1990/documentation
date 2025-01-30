@@ -1,12 +1,17 @@
 ---
 title: Amazon Route 53 Domain Configuration
 provider: Amazon Route 53
-dnsprovider: true
 description: Learn how to point your Amazon Route 53 domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 permalink: docs/:basename
 editpath: dns-providers/route53.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [--]
 ---
 ## Before You Begin
 Be sure that you have a:
@@ -18,7 +23,7 @@ Be sure that you have a:
 ## Locate Pantheon's DNS Values
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. Navigate to the [Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 2. Click the **Details** button next to your domain.
 
 Keep this page open and login to your [Amazon Route 53 account](https://console.aws.amazon.com/route53/) in a new tab before you continue.
@@ -66,15 +71,17 @@ Keep this page open and login to your [Amazon Route 53 account](https://console.
 
   ![Route 53 AAAA records](../../images/route53-aaaa-records.png)
 
-### A Record for subdomain
-An A record is required to configure a subdomain (e.g., `www.example.com`).
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
 1. Click **Create Record Set** to add a new record, then select **A - IPv4 address** for the record type.
 2. Enter **www** in the **Name** field and enter the A record value provided by Pantheon in the **Value** field (e.g. `23.185.0.2`)
 3. Select desired Time to Live (TTL).
 4. Click **Create**:
+5. Repeat steps 1-4 for the two AAAA records.
 
 ## Next Steps
 
 - [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 - [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

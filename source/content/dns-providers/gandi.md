@@ -1,12 +1,17 @@
 ---
 title: Gandi Domain Configuration
 provider: Gandi
-dnsprovider: true
 description: Learn how to point your Gandi domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 permalink: docs/:basename
 editpath: dns-providers/gandi.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [gandi]
 ---
 ## Before You Begin
 Be sure that you have a:
@@ -19,7 +24,7 @@ Be sure that you have a:
 ## Locate Pantheon's DNS Values
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. Navigate to the [Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 2. Click the **Details** button next to your domain.
 
 Keep this page open and login to your [Gandi account](https://id.gandi.net/en/login) in a new tab before you continue.
@@ -51,21 +56,23 @@ Keep this page open and login to your [Gandi account](https://id.gandi.net/en/lo
 4. Click **Submit**.
 5. Repeat steps 1-5 for the second AAAA record value provided by Pantheon. There are two AAAA records for improved uptime and reliability.
 
-### A Record for subdomain
-An A record is required to configure a subdomain (e.g., `www.example.com`).
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
 1. Click the **Add** button and select **A** from the type dropdown menu.
 2. Select desired Time to Live (TTL).
 3. Enter **www** in the **Name** field and enter the A record value provided by Pantheon (e.g. `23.185.0.2`) in the **Value** field.
 4. Click **Submit**.
 5. Click the **Activate this version** button.
+6. Repeat steps 1-5 for the two AAAA records.
 
 
 ## Gandi Docs
 
-[Gandi's domain documentation.<span class="glyphicons glyphicons-new-window-alt"></span>](https://docs.gandi.net/en/domain_names/index.html" target="blank)
+[Gandi's domain documentation](https://docs.gandi.net/en/domain_names/).
 
 ## Next Steps
 
 * [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 * [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

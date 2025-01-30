@@ -2,27 +2,32 @@
 title: Pantheon Autopilot
 subtitle: Introduction
 description: Visual regression testing (VRT) for your WordPress or Drupal site.
-categories: [automate]
-tags: [iterate, autopilot, testing, webops]
+tags: [iterate, autopilot, testing, webops, D8, D9, D10]
 contributors: [nathantyler, alexfornuto, edwardangert]
-productpage: https://pantheon.io/autopilot?docs
 type: guide
-layout: guide
 showtoc: true
-anchorid: autopilot
 permalink: docs/guides/autopilot
 editpath: autopilot/01-introduction.md
-reviewed: "2021-08-17"
+reviewed: "2022-12-13"
+contenttype: [guide]
+innav: [true]
+categories: [automate, test, update, faqs]
+cms: [--]
+audience: [development]
+product: [autopilot]
+integration: [--]
 ---
 
-[Autopilot](https://pantheon.io/autopilot?docs) is part of Pantheon's [New Dashboard](/guides/new-dashboard) experience. Pantheon Autopilot automatically detects, performs, and deploys updates for WordPress and Drupal.
+[Autopilot](https://pantheon.io/autopilot?docs) automatically detects, performs, and deploys updates for WordPress and Drupal. Autopilot also features automated visual regression testing (VRT) to ensure that your site's user experience (UX) is consistent while securing your site and implementing new features.
+
+<Wistia src="g6syd1p6ed" />
 
 ## What Autopilot Does
 
 Pantheon's Autopilot:
 
 - Automatically detects when new updates are available
-- Performs the updates in an isolated [Multidev](/multidev) environment
+- Performs the updates in an isolated [Multidev](/guides/multidev) environment
 - Tests the updates with automated visual regression testing (VRT)
 - Optionally deploys the updates
 
@@ -30,66 +35,52 @@ Pantheon's Autopilot:
 
 ## Get Autopilot
 
-Autopilot is available to Gold Accounts and higher. Check out our [pricing page](https://pantheon.io/pricing?docs) and contact [Sales](https://pantheon.io/earlyaccess/autopilot?docs) to talk through what plan is best for your needs.
+Autopilot is available for the following accounts:
 
-## Who is Autopilot For?
+ - Gold
+ - Platinum
+ - Diamond
+ - Agency partners
 
-If you build or maintain WordPress and Drupal sites, Autopilot is for you.
+Check out our [pricing page](https://pantheon.io/plans/pricing?docs) and contact [Sales](https://pantheon.io/contact-sales?docs) to discuss which plan is best for your needs.
+
+## Who is Autopilot for?
+
+Autopilot is for you if you build or maintain WordPress and Drupal sites.
 
 Site upkeep can be tedious with constant monitoring, building, maintaining websites, and working cross-functionally to deliver digital experiences for customers. Autopilot relieves you of the continual maintenance work it takes to keep sites updated.
 
-Autopilot requires [Multidev](/multidev), and is available to Pantheon Gold Accounts or higher.
+Autopilot requires [Multidev](/guides/multidev), and is available to Pantheon [Gold Accounts or higher](/guides/account-mgmt/workspace-sites-teams/workspaces#account-plans).
 
 Autopilot is enabled for Pantheon sites at the organization level.
 
-## FAQ
+## Autopilot Requirements
 
-### Is Autopilot configurable per site?
+Autopilot requires the following:
 
-Yes. Access to Autopilot is account-based and individual sites in that account can turn Autopilot on and off as desired. See [Enable Autopilot](/guides/autopilot/enable-autopilot)
+- A Gold, Platinum, or Diamond account
+- [Multidev](/guides/multidev)
+- A compatible version of Drush (if you are not using Integrated Composer)
+- A compatible site framework (refer to [Autopilot Site Compatibility](/guides/autopilot#autopilot-site-compatibility) for more information.
 
-### Will Autopilot email VRT results?
+### Autopilot Site Compatibility
 
-Yes. Configure [Autopilot activity digests and notifications](/guides/autopilot/enable-autopilot/#enable-autopilot-email-notifications) in your Personal Workspace settings **Notifications** tab.
+<Partial file="autopilot/autopilot-compatibility.md" />
 
-### Does Autopilot work with Integrated Composer?
+## Autopilot for Agencies
 
-Yes. If your site is using [Integrated Composer](/integrated-composer) (`build_step` is `true` in the `pantheon.yml` [file](/pantheon-yml)), Autopilot will be able to update it.
+Agency users can navigate to the Agency Workspace to see sites that have been granted agency access. The Agency Workspace also shows client sites for which the agency is a supporting or owning workspace.
 
-### Does Autopilot work with Build Tools?
+Agency users can only access Autopilot through the Agency Workspace.
 
-Not yet. [Autopilot](/guides/autopilot) is not compatible with [Build Tools](/guides/build-tools/) or other workflows that use external Git repositories.
+## Autopilot Terminus Plugin
 
-### What versions of Drush are supported by Autopilot?
+You can use the [Autopilot Terminus plugin](https://github.com/pantheon-systems/terminus-autopilot-plugin#readme) to perform several Autopilot actions from your terminal. The Autopilot Terminus plugin does not provide the full range of functions available through the dashboard at this time.
 
-Currently, Autopilot only supports Drush 8 for all sites up to Drupal 9. Drupal 9 uses Drush 10 and is compatible with Autopilot.
+## More Resources
 
-However, Autopilot does not use Drush when updating an Integrated Composer site; you can use any Drush version when using Integrated Composer. Refer to the documentation on [Drush versions](/drush-versions) for more information.
-
-### Does Autopilot support Terminus actions?
-
-Not yet.
-
-### Does Autopilot automatically deploy changes to the Live environment?
-
-You can specify the environments to which Autopilot deploys. See the next page for [configuration options](/guides/autopilot/enable-autopilot).
-
-### Does Autopilot clone the database from Live to Dev before doing the updates?
-
-No. Autopilot always tests updates against a Multidev based on the current Dev environment.
-
-For Autopilot to compare updates to the Live environment, keep the Dev environment [synchronized with the Live environment](/pantheon-workflow), to ensure Autopilot test updates against the most up-to-date state of the Live environment.
-
-### Does the Autopilot Multidev count towards the Multidev limit?
-
-No. If you encounter any issues about Multidev limits, [contact Support](/support).
-
-### Does Autopilot perform tests on authenticated pages?
-
-Not yet. Currently, Autopilot only supports tests on anonymous access versions of pages. Support for authenticated (logged-in user) page tests is planned for a future release.
-
-## See Also
-
+- [Autopilot Pre-Configuration Checklist](/guides/autopilot/autopilot-preconfiguration/)
+- [Autopilot Custom Upstream Guide](/guides/autopilot-custom-upstream)
 - [Autopilot Product Page](https://pantheon.io/autopilot?docs)
 - [Webinar: Put CMS Updates on Cruise Control with Autopilot](https://pantheon.io/put-cms-updates-on-cruise-control-with-autopilot-webinar)
 - [Autopilot Makes Open Source CMS a Reality at Scale](https://pantheon.io/blog/open-source-cms-scale-autopilot)

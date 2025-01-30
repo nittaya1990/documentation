@@ -1,12 +1,17 @@
 ---
 title: DNS Made Easy Domain Configuration
 provider: DNS Made Easy
-dnsprovider: true
 description: Learn how to point your DNS Made Easy domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 permalink: docs/:basename
 editpath: dns-providers/dns-made-easy.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [--]
 ---
 ## Before You Begin
 Be sure that you have a:
@@ -18,7 +23,7 @@ Be sure that you have a:
 ## Locate Pantheon's DNS Values
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. [Go to the Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 2. Click the **Details** button next to your domain.
 
 Keep this page open and login to your [DNS Made Easy account](https://cp.dnsmadeeasy.com/) in a new tab before you continue.
@@ -27,7 +32,7 @@ Keep this page open and login to your [DNS Made Easy account](https://cp.dnsmade
 
 ### A Record
 1. Click **DNS** in the menu bar and select the domain you wish to configure.
-2. Within the **A** table, click <span class="glyphicon glyphicon-plus"></span> to add a new record.
+2. Within the **A** table, click <Icon icon="plus" /> to add a new record.
 3. Leave the **Name** field blank and enter the A record value provided by Pantheon in the **IP** field.
 4. Select desired Time to Live (TTL).
 
@@ -46,7 +51,7 @@ Keep this page open and login to your [DNS Made Easy account](https://cp.dnsmade
   ![dns made easy a record](../../images/dns-made-easy-a-record.png)
 
 ### AAAA Records
-1. Within the **AAAA** table, click <span class="glyphicon glyphicon-plus"></span> to add a new record.
+1. Within the **AAAA** table, click <Icon icon="plus" /> to add a new record.
 2. Leave the **Name** field blank and enter the first AAAA record value provided by Pantheon in the **IPv6** field.
 3. Select desired Time to Live (TTL).
 
@@ -64,15 +69,17 @@ Keep this page open and login to your [DNS Made Easy account](https://cp.dnsmade
 
   ![dns made easy aaaa records](../../images/dns-made-easy-aaaa-records.png)
 
-### A Record for subdomain
-An A record is required to configure a subdomain (e.g., `www.example.com`).
+### Subdomains
+Create one A record and 2 AAAA records for the given subdomain (e.g., `www.example.com`):
 
-1. Within the **A** table, click <span class="glyphicon glyphicon-plus"></span> to add a new record.
+1. Within the **A** table, click <Icon icon="plus" /> to add a new record.
 2. Enter **www** in the **Name** field and enter the A record value provided by Pantheon in the **IP** field (e.g. `23.185.0.2`).
 3. Select desired Time to Live (TTL).
 4. Click **Submit**:
+5. Repeat steps 1-4 for the two AAAA records.
 
 ## Next Steps
 
 * [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 * [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

@@ -2,12 +2,14 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../layout/layout"
 import SEO from "../layout/seo"
-import ContributorLink from "../components/contributorLink"
+import ContributorLink from "../components/ContributorLink"
+
+import { Container, TwoItemLayout } from "@pantheon-systems/pds-toolkit-react"
 
 const links = [
   {
     property: "url",
-    icon: "globe",
+    icon: "user",
   },
   {
     property: "github",
@@ -31,33 +33,40 @@ const links = [
   },
 ]
 
+// Set container width for search and main content.
+const containerWidth = "standard"
+
 class ContributorTemplate extends React.Component {
   render() {
     const contributor = this.props.data.contributorYaml
     const docs =
       this.props.data.allDocs != null ? this.props.data.allDocs.edges : []
+    let printedGuides = []
+    let printedOverview = []
+
+    console.log(contributor)
+
     return (
-      <Layout>
+      <Layout containerWidth={containerWidth} footerBorder>
         <SEO title={contributor.name} />
-        <div className="container mb-70">
-          <div className="row">
-            <title>{contributor.name}</title>
-            <div className="article container">
-              <div className="media">
-                <div className="pull-left">
-                  <div className="guest-info__img">
-                    <img
-                      alt="Author photo"
-                      typeof="foaf:Image"
-                      src={contributor.avatar}
-                      width="540"
-                      height="540"
-                    />
-                  </div>
+        <title>{contributor.name}</title>
+        <main id="docs-main" tabIndex="-1">
+          <Container width={containerWidth} className="docs-contributor">
+            <div className="article">
+              <TwoItemLayout layoutVariant="one-third-start">
+                <div slot="first-item" className="docs-contributor__image">
+                  <img
+                    alt="Author photo"
+                    typeof="foaf:Image"
+                    src={contributor.avatar}
+                    width="540"
+                    height="540"
+                  />
                 </div>
-                <div className="media-body">
-                  <div className="media-heading">
-                    <h1>{contributor.name}</h1>
+
+                <div slot="second-item" className="docs-contributor__header">
+                  <h1>{contributor.name}</h1>
+                  <div className="docs-contributor__social">
                     {links.map((link, i) => {
                       const url = contributor.hasOwnProperty(link.property)
                         ? contributor[link.property]
@@ -69,13 +78,18 @@ class ContributorTemplate extends React.Component {
                       }
                     })}
                   </div>
-                  <p />
-                  <h4>Contributions</h4>
-                  <ul>
+                </div>
+
+                <div
+                  slot="second-item"
+                  className="docs-contributor__contributions"
+                >
+                  <h2>Contributions</h2>
+                  <ul className="docs-contributor__list">
                     {docs.map(({ node }) => {
                       return (
                         <li key={node.id}>
-                          <Link to={`/${node.fields.slug}`}>
+                          <Link to={`/${node.publicURL}`}>
                             {node.frontmatter.title}
                           </Link>
                         </li>
@@ -83,10 +97,10 @@ class ContributorTemplate extends React.Component {
                     })}
                   </ul>
                 </div>
-              </div>
+              </TwoItemLayout>
             </div>
-          </div>
-        </div>
+          </Container>
+        </main>
       </Layout>
     )
   }
@@ -96,10 +110,10 @@ export default ContributorTemplate
 
 export const pageQuery = graphql`
   query ContributorById($id: String!) {
-    contributorYaml(id: { eq: $id }) {
-      id
+    contributorYaml(yamlId: { eq: $id }) {
       name
       avatar
+      yamlId
       url
       github
       drupal
@@ -108,12 +122,13 @@ export const pageQuery = graphql`
       linkedin
     }
 
-    allDocs: allMdx(
+    allDocs: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { ne: null }
         frontmatter: {
-          contributors: { elemMatch: { id: { eq: $id } } }
-          draft: {ne: true}
+          contributors: { eq: $id }
+          draft: { ne: true }
+          innav: { eq: true }
         }
       }
     ) {
@@ -123,9 +138,15 @@ export const pageQuery = graphql`
           frontmatter {
             title
           }
-          fields {
-            slug
-          }
+          fileAbsolutePath
+        }
+      }
+    }
+    relativePath: allFile(filter: { relativePath: { ne: "null" } }) {
+      edges {
+        node {
+          relativePath
+          publicURL
         }
       }
     }

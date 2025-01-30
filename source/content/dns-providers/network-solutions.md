@@ -1,13 +1,18 @@
 ---
 title: Network Solutions Domain Configuration
 provider: Network Solutions
-dnsprovider: true
 description: Learn how to point your Network Solutions domain to a Pantheon site.
-categories: [go-live]
-tags: [dns]
+tags: [domains]
 reviewed: "2021-01-26"
 permalink: docs/:basename
 editpath: dns-providers/network-solutions.md/
+contenttype: [doc]
+innav: [true]
+categories: [domains]
+cms: [--]
+audience: [--]
+product: [--]
+integration: [--]
 ---
 
 ## Before You Begin
@@ -22,7 +27,7 @@ Be sure that you have a:
 
 Identify DNS values to point your domain to Pantheon:
 
-1. Navigate to the Site Dashboard and select the target environment (typically <span class="glyphicons glyphicons-cardio"></span> Live) then click **<span class="glyphicons glyphicons-global"></span> Domains / HTTPS**.
+1. Navigate to the [Site Dashboard](/guides/account-mgmt/workspace-sites-teams/sites#site-dashboard) and select the target environment (typically <Icon icon="wavePulse" /> Live) then click **<Icon icon="global" /> Domains / HTTPS**.
 
 1. Click the **Details** button next to your domain.
 
@@ -60,18 +65,6 @@ Keep this page open and login to your [Network Solutions account](https://www.ne
 
 1. Once changes are saved, the section of the Advanced DNS interface for A records should look like this:
 
-### A Record for Subdomain
-
-An A record is required to configure a subdomain (e.g., `www.example.com`).
-
-1. In the IP Address (A records) section, click **Edit A Records**.
-
-1. Edit the **www** record field and enter the A record value provided by Pantheon (e.g. `23.185.0.2`) in the **Numeric IP** field.
-
-1. Select desired Time to Live (TTL).
-
-1. Click **Save Changes**.
-
 ### AAAA Records
 
 1. In the IPV6 Address (AAAA Records) section, click **Edit AAAA Records**.
@@ -94,4 +87,5 @@ An A record is required to configure a subdomain (e.g., `www.example.com`).
 ## Next Steps
 
 - [Launch Essentials: Domains & HTTPS](/guides/launch/domains)
+
 - [Launch Essentials: Redirect to a Primary Domain](/guides/launch/redirects)

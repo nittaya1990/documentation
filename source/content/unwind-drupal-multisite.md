@@ -1,9 +1,14 @@
 ---
 title: Extracting Sites from a Drupal Multisite
 description: Learn how to separate the codebases to import individual Drupal sites to Pantheon.
-cms: "Drupal"
-categories: [get-started]
 tags: [migrate, multisite, drush]
+contenttype: [doc]
+innav: [true]
+categories: [migrate, create]
+cms: [drupal]
+audience: [development]
+product: [terminus]
+integration: [multisite]
 ---
 
 Pantheon only supports one application codebase and one database per site. We do not recommend using database prefixes or offer support for Drupal Multisite implementations. If you are currently struggling with a Drupal Multisite and want to use Pantheon, you'll need to "unwind" the implementation, separating it into individual sites. You may also create a Custom Upstream if appropriate for your use-case.
@@ -22,7 +27,7 @@ This method will safely migrate a single site out of your Drupal Multisite and i
 
 5. Install [Drush SAR 2.x](https://www.drupal.org/project/sar) as described in this [blog post](https://pantheon.io/blog/expand-use-drush-pantheon-more-commands).
 
-6. [Backup the site](/backups/#create-a-backup) in the Dashboard, just in case.
+6. [Backup the site](/guides/backups/create-backups) in the Dashboard, just in case.
 
 7. Run `terminus drush <site>.<env> -- sar --dry-run sites/sitename1 sites/default` to test the search and replace. This exact command can change depending on the name of your site, and broken assets in step 3.
 
@@ -35,9 +40,9 @@ This method will safely migrate a single site out of your Drupal Multisite and i
 
 ## Maintain a Single Codebase for Multiple Sites
 
-This method uses a [Custom Upstream](/custom-upstream), a feature available to EDUs, Enterprises, and [Pantheon Partner Agencies](https://pantheon.io/plans/partner-program?docs).
+This method uses a [Custom Upstream](/guides/custom-upstream), a feature available to EDUs, Enterprises, and [Pantheon Partner Agencies](https://pantheon.io/plans/partner-program?docs).
 
-1. Create a [Custom Upstream](/custom-upstream) based on the multisite configuration.
+1. Create a [Custom Upstream](/guides/custom-upstream) based on the multisite configuration.
 
 2. Archive each of your sites using `drush ard`.
 
@@ -45,7 +50,7 @@ This method uses a [Custom Upstream](/custom-upstream), a feature available to E
 
 Then for each site:
 
-4. [Git clone the repo](/git/#clone-your-site-codebase) locally.
+4. [Git clone the repo](/guides/git/git-config#clone-your-site-codebase) locally.
 
 5. If there are customizations on the individual sites that are not incorporated into the upstream repository, commit those changes from your archives into the local repo.
 

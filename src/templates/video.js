@@ -1,94 +1,44 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import { MDXProvider } from "@mdx-js/react"
+import React from 'react';
+import GuideLayout from '../layout/GuideLayout';
 
-import Layout from "../layout/layout"
-import HeaderBody from "../components/headerBody"
+import { graphql } from 'gatsby';
+import SearchBar from '../layout/SearchBar';
 
-import Callout from "../components/callout"
-import Alert from "../components/alert"
-import Accordion from "../components/accordion"
-import ExternalLink from "../components/externalLink"
-import Icon from "../components/icon"
-import Popover from "../components/popover"
-import TabList from "../components/tabList"
-import Tab from "../components/tab"
-import TOC from "../components/toc"
-import GetFeedback from "../components/getFeedback"
-import Card from "../components/card"
-import CardGroup from "../components/cardGroup"
-import SEO from "../layout/seo"
-import Enablement from "../components/enablement"
-import Color from "../components/color.js"
-import Download from "../components/download"
-import Partial from "../components/partial"
-import Image from "../layout/image"
-import Example from "../components/styleExample"
-import Youtube from "../components/youtube"
+import HeaderBody from '../components/headerBody';
+import SEO from '../layout/seo';
+import { Container } from '@pantheon-systems/pds-toolkit-react';
+import MdxWrapper from '../components/mdxWrapper';
+import OmniSidebarNav from '../components/omniSidebarNav';
 
-const shortcodes = {
-  Callout,
-  Alert,
-  Accordion,
-  ExternalLink,
-  Icon,
-  Popover,
-  TabList,
-  Tab,
-  Card,
-  CardGroup,
-  Enablement,
-  Color,
-  Download,
-  Partial,
-  Image,
-  Example,
-  Youtube,
-}
+// Set container width for search and main content.
+const containerWidth = 'standard';
 
 class VideoTemplate extends React.Component {
-  componentDidMount() {
-    $("[data-toggle=popover]").popover({
-      trigger: "click",
-    })
-
-    $("body").on("click", function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        if (
-          !$(this).is(e.target) &&
-          $(this).has(e.target).length === 0 &&
-          $(".popover").has(e.target).length === 0
-        ) {
-          $(this).popover("hide")
-        }
-      })
-    })
-
-    $("body").keyup(function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        if (event.which === 27) {
-          $(this).popover("hide")
-        }
-      })
-    })
-  }
-
   render() {
-    const node = this.props.data.mdx
+    const node = this.props.data.mdx;
+
+    const ContainerDiv = ({ children }) => (
+      <div className="content-wrapper">{children}</div>
+    );
+    const ContentLayoutType = ContainerDiv;
 
     return (
-      <Layout>
+      <GuideLayout footerBorder>
         <SEO
+          // @todo, make sure all updated templates have this slot
+          slot="seo"
           title={node.frontmatter.title}
           description={node.frontmatter.description || node.excerpt}
           authors={node.frontmatter.contributors}
-          image={"/assets/images/default-thumb-doc.png"}
+          image={'/images/default-thumb-video.png'}
           type={node.frontmatter.type}
         />
-        <div className="">
-          <div className="container doc-content-well">
-            <div id="doc" className="doc article col-md-9 md-70">
+        <OmniSidebarNav slot="guide-menu" activePage={node.fields.slug} />
+        <ContentLayoutType slot="guide-content">
+          <main id="docs-main" tabIndex="-1">
+            <Container width={containerWidth} className="docs-video">
+              <SearchBar slot="content" page="default" />
+
               <HeaderBody
                 title={node.frontmatter.title}
                 subtitle={node.frontmatter.subtitle}
@@ -97,35 +47,19 @@ class VideoTemplate extends React.Component {
                 contributors={node.frontmatter.contributors}
                 featured={node.frontmatter.featuredcontributor}
               />
-              <article style={{ marginTop: "15px", marginBottom: "45px" }}>
-                <MDXProvider components={shortcodes}>
-                  <MDXRenderer>{node.body}</MDXRenderer>
-                </MDXProvider>
+
+              <article className="pds-spacing-mar-block-end-4xl">
+                <MdxWrapper mdx={node.body} />
               </article>
-            </div>
-            <div
-              className="col-md-3 pio-docs-sidebar hidden-print hidden-xs hidden-sm affix-top"
-              role="complementary"
-            ></div>
-          </div>
-        </div>
-        {node.frontmatter.getfeedbackform && (
-          <GetFeedback
-            formId={
-              node.frontmatter.getfeedbackform === "default"
-                ? "12z1fMzn"
-                : node.frontmatter.getfeedbackform
-            }
-            page={"/" + node.fields.slug}
-            topic="addons"
-          />
-        )}
-      </Layout>
-    )
+            </Container>
+          </main>
+        </ContentLayoutType>
+      </GuideLayout>
+    );
   }
 }
 
-export default VideoTemplate
+export default VideoTemplate;
 
 export const pageQuery = graphql`
   query VideoBySlug($slug: String!) {
@@ -138,9 +72,8 @@ export const pageQuery = graphql`
       frontmatter {
         title
         description
-        getfeedbackform
         contributors {
-          id
+          yamlId
           name
           twitter
           bio
@@ -153,4 +86,4 @@ export const pageQuery = graphql`
       fileAbsolutePath
     }
   }
-`
+`;

@@ -2,20 +2,16 @@
 title: Incident Management
 subtitle: Slack Integrations (optional)
 description: Page five of our guide on Pagerduty integration with New Relic for incident management.
-pagerduty: true
-anchorid: slack
-generator: pagination
-layout: guide
-categories: [performance]
+contenttype: [guide]
+innav: [false]
+categories: [track]
+cms: [--]
+audience: [development]
+product: [newrelic]
+integration: [--]
 tags: [logs, measure, newrelic, teams, webops]
 type: guide
-pagination:
-    provider: data.pagerdutypages
-use:
-    - pagerdutypages
 permalink: docs/guides/pagerduty/slack/
-previousurl: guides/pagerduty/notify/
-nexturl: guides/pagerduty/next-steps/
 editpath: pagerduty/05-slack.md
 ---
 In this lesson, we'll add the Slack extension to PagerDuty so your team can acknowledge and resolve incidents within a channel.
@@ -37,7 +33,7 @@ In this lesson, we'll add the Slack extension to PagerDuty so your team can ackn
 
     ![CSlack authorization](../../../images/pagerduty/pg-authorize-slack.png)
 
-5. Go to **Configuration** > **Services**, and click the **<span class="glyphicons glyphicons-cogwheel" aria-hidden="true"></span>** icon next to your existing service then click **+ New Incident**:
+5. Go to **Configuration** > **Services**, and click the **<Icon icon="gear" />** icon next to your existing service then click **+ New Incident**:
 
   ![Configure existing service](../../../images/pagerduty/pg-configure-service.png)
 
@@ -50,3 +46,10 @@ This will automatically send notifications to whoever is on-call via SMS and ema
 ![SMS interactions](../../../images/pagerduty/pg-sms-notification.png)
 
 ![CSlack authorization](../../../images/pagerduty/pg-slack-notification.png)
+
+
+## More Resources
+
+- [Monitor and Improve Site Performance with New Relic&reg;](/guides/new-relic/monitor-new-relic)
+
+- [Integrate Your Fastly Account with New Relic&reg;](/guides/fastly-pantheon/fastly-new-relic)

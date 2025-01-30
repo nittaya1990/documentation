@@ -2,20 +2,30 @@
 title: Incident Management
 subtitle: New Relic Ping Monitors
 description: Page two of our guide on Pagerduty integration with New Relic for incident management.
-layout: guide
-categories: [performance]
+contenttype: [guide]
+innav: [false]
+categories: [track]
+cms: [--]
+audience: [development]
+product: [newrelic]
+integration: [--]
 tags: [logs, measure, newrelic, teams, webops]
 type: guide
-anchorid: monitor
 permalink: docs/guides/pagerduty/monitor/
 editpath: pagerduty/02-monitors.md
 reviewed: "2020-08-18"
 ---
-In this lesson, we'll set up a new ping monitor to periodically check the site's availability in New Relic Synthetics.
+In this lesson, we'll set up a new ping monitor to periodically check the site's availability in New Relic&reg; Synthetics.
+
+<Alert title="Note" type="info">
+
+ Please [contact support](/guides/support/contact-support/) if you encounter a permissions warning in New Relic while following the steps below.
+
+</Alert>
 
 ## Create a Monitor
 
-1. Navigate to the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Live** environment in your Site Dashboard, and click **<span class="glyphicons glyphicons-eye-open" aria-hidden="true"></span> New Relic** then **<span class="glyphicons glyphicons-new-window-alt" aria-hidden="true"></span> Go to New Relic**.
+1. Navigate to the **<Icon icon="wrench" /> Live** environment in your Site Dashboard, and click **<Icon icon="eye" /> New Relic** then **<Icon icon="externalLink" /> Go to New Relic**.
 
 1. Select **Synthetics** from the menu bar at the top of the page.
 
@@ -37,13 +47,13 @@ In this lesson, we'll set up a new ping monitor to periodically check the site's
 
 1. We'll setup notifications in a [later lesson](/guides/pagerduty/notify) with PagerDuty.
 
-Pantheon can provide New Relic ping monitoring for free as part of the service. However, more advanced monitoring — full browser testing, or scripted interactions — is only available to customers on an annual contract and requires an additional cost. Contact our sales team or your dedicated account manager for details.
+Pantheon can provide New Relic&reg; ping monitoring for free as part of the service. However, more advanced monitoring — full browser testing, or scripted interactions — is only available to customers on an annual contract and requires an additional cost. Contact our sales team or your dedicated account manager for details.
 
 ## Configure Alert Policy
 
-Now that you have a monitor setup in New Relic to periodically check your Pantheon site, you'll need to configure alerts for downtime incidents:
+Now that you have a monitor setup in New Relic&reg; to periodically check your Pantheon site, you'll need to configure alerts for downtime incidents:
 
-1. Navigate to the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Live** environment in your Site Dashboard, and click **<span class="glyphicons glyphicons-eye-open" aria-hidden="true"></span> New Relic** then **<span class="glyphicons glyphicons-new-window-alt" aria-hidden="true"></span> Go to New Relic**.
+1. Navigate to the **<Icon icon="wrench" /> Live** environment in your Site Dashboard, and click **<Icon icon="eye" /> New Relic** then **<Icon icon="externalLink" /> Go to New Relic**.
 
 1. Select **Alerts & AI** from the menu bar at the top of the page, then **Policies** from the menu on the right.
 
@@ -62,3 +72,11 @@ Now that you have a monitor setup in New Relic to periodically check your Panthe
 1. If you selected multiple location failures, define the number of locations to trigger the failure. Name the Click **Create condition**.
 
 <Partial file="monitor-alerts.md" />
+
+## More Resources
+
+- [Monitor and Improve Site Performance with New Relic&reg;](/guides/new-relic/monitor-new-relic)
+
+- [MySQL Troubleshooting with New Relic&reg; Performance Monitoring](/guides/new-relic/debug-mysql-new-relic)
+
+- [New Relic&reg; FAQ](/guides/new-relic/new-relic-faq)

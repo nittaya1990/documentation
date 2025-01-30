@@ -2,13 +2,17 @@
 title: Pantheon Professional Services
 subtitle: Onboarding Services
 description: Pantheon Onboarding Services include Secure Integration, SSO, pre-launch load tests, and more to help you realize WebOps value, fast.
-categories: [get-started]
+contenttype: [guide]
+innav: [false]
+categories: [help]
+cms: [--]
+audience: [development, sysadmin]
+product: [--]
+integration: [--]
 tags: [services, migration, onboarding, secure integration, load testing, SSO, WebOps]
 reviewed: "2021-04-01"
-layout: guide
 showtoc: true
 permalink: docs/guides/professional-services/onboarding
-anchorid: onboarding
 editpath: professional-services/03-onboarding.md
 ---
 
@@ -18,11 +22,11 @@ Pantheon Onboarding Managers are your website operations (**WebOps**) experts, t
 
 ## Pantheon Secure Integration
 
-Provides a static outgoing IP address for use in IP allowlisting connections to external services. [Learn more about Secure Integration](/secure-integration) or [contact us](https://pantheon.io/professional-services?docs) for details.
+Provides a static outgoing IP address for use in IP allowlisting connections to external services. [Learn more about Secure Integration](/guides/secure-development/secure-integration) or [contact us](https://pantheon.io/professional-services?docs) for details.
 
 ## SSO/SAML
 
-Single Sign-on to the Pantheon Dashboard. [Learn more about SSO for Organizations](/sso-organizations) or [contact us](https://pantheon.io/professional-services?docs) for details.
+Single Sign-on to the Pantheon Dashboard. [Learn more about SSO for Organizations](/guides/sso-organizations) or [contact us](https://pantheon.io/professional-services?docs) for details.
 
 ## Custom SSL Certificates
 
@@ -30,11 +34,7 @@ If a Custom SSL Certificate is mission critical to your web property, you can br
 
 ## Pre-launch Load Testing
 
-Load tests provide critical insight into how a site will perform in the wild and through peak traffic spikes. Load tests ensure that your website launches smoothly and that it is ready to absorb the high traffic that success brings.
-
-Using proprietary tools developed by the Onboarding team, we generate traffic to your Live site, simulating complex user interactions if needed. There is no better way to expose and identify potential performance bottlenecks before you’ve launched your site.
-
-Newly purchased Elite plans include one pre-launch load test. [Contact us](https://pantheon.io/professional-services?docs) for more information.
+<Partial file="load-testing.md" />
 
 ## Additional Services
 
@@ -42,7 +42,7 @@ The following services are not fulfilled by the Onboarding Manager but are addit
 
 ### Customer Success Management
 
-Pantheon Customer Success Managers (**CSMs**) work proactively with you, helping you build agile website operations, achieve business goals, adopt best practices, and stay ahead of the competition. A dedicated CSM is included with all Diamond Accounts and is available for Gold and Platinum Accounts. Your dedicated CSM meets with you regularly to provide site performance audits, review team usage of the platform, extend early access to new features, and ensure that you are getting the most value possible from the platform. [Contact us](https://pantheon.io/contact-us?docs) for details.
+Pantheon Customer Success Managers (**CSMs**) work proactively with you, helping you build agile website operations, achieve business goals, adopt best practices, and stay ahead of the competition. A dedicated CSM is included for all Enterprise (contract) Accounts. Your dedicated CSM meets with you regularly to provide site performance audits, review team usage of the platform, extend early access to new features, and ensure that you are getting the most value possible from the platform. [Contact us](https://pantheon.io/contact-us?docs) for details.
 
 ### Expert Training
 

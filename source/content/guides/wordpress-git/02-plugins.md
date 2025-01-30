@@ -2,23 +2,26 @@
 title: Using Git with SFTP & WordPress
 subtitle: Install Plugins
 description: Beginners guide on how to use the WordPress Dashboard, an SFTP client, and your text editor of choice to work quickly, safely and easily on Pantheon's Git-based platform.
-anchorid: plugins
-layout: guide
-cms: "WordPress"
-categories: [develop]
+contenttype: [guide]
+innav: [false]
+categories: [git]
+cms: [wordpress]
+audience: [development]
+product: [--]
+integration: [--]
 tags: [git, plugins, sftp]
 type: guide
 permalink: docs/guides/wordpress-git/plugins/
 editpath: wordpress-git/02-plugins.md
-image: git-sftp-wp-docs-guide
 reviewed: "2020-02-26"
+image: git-sftp-wp-docs-guide.png
 ---
 
 This lesson demonstrates how to develop using the WordPress Dashboard in SFTP mode. We'll install a few plugins and submit each one to version control as individual commits.
 
-1. Navigate to **<span class="glyphicons glyphicons-embed-close" aria-hidden="true"></span> Code** in the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** tab of your Site Dashboard. Confirm your Connection Mode is set to **SFTP**.
+1. Navigate to **<Icon icon="code" /> Code** in the **<Icon icon="wrench" /> Dev** tab of your Site Dashboard. Confirm your Connection Mode is set to **SFTP**.
 
-1. Now log in to your Dev site by clicking the **<span class="glyphicons glyphicons-new-window-alt" aria-hidden="true"></span> Site Admin** button.
+1. Now log in to your Dev site by clicking the **<Icon icon="externalLink" /> Site Admin** button.
 
   ![Add new plugin](../../../images/guides/git-wordpress/sftp-mode.png)
 
@@ -28,7 +31,7 @@ This lesson demonstrates how to develop using the WordPress Dashboard in SFTP mo
 
   ![Install Pantheon Advanced Page Cache plugin](../../../images/guides/git-wordpress/install-yoast.png)
 
-  If you encounter a prompt for FTP credentials, you're either working on the wrong environment or you're using the wrong connection mode. Don't try to authenticate FTP prompts within the WordPress Dashboard, it won't work (by design). Using the WordPress Dashboard to add or modify code is only allowed using the **SFTP** connection mode on the **<span class="glyphicons glyphicons-wrench" aria-hidden="true"></span> Dev** environment.
+  If you encounter a prompt for FTP credentials, you're either working on the wrong environment or you're using the wrong connection mode. Don't try to authenticate FTP prompts within the WordPress Dashboard, it won't work (by design). Using the WordPress Dashboard to add or modify code is only allowed using the **SFTP** connection mode on the **<Icon icon="wrench" /> Dev** environment.
 
 1. Return to the Pantheon Site Dashboard and click the yellow notification to review file changes as a result of our actions in the WordPress Dashboard:
 
@@ -60,11 +63,11 @@ This lesson demonstrates how to develop using the WordPress Dashboard in SFTP mo
 
   #### [Pantheon Advanced Page Cache](https://wordpress.org/plugins/pantheon-advanced-page-cache/)
 
-  Automatically clear related pages from [Pantheon's Global CDN](/global-cdn) when you update content. Without this plugin, pages expire from cache after 10 minutes (600 seconds) by default. This plugin allows fresh content to be immediately served to anonymous visitors.
+  Automatically clear related pages from [Pantheon's Global CDN](/guides/global-cdn) when you update content. Without this plugin, pages expire from cache after 10 minutes (600 seconds) by default. This plugin allows fresh content to be immediately served to anonymous visitors.
 
   #### [WordPress Native PHP Sessions](https://wordpress.org/plugins/pantheon-advanced-page-cache/)
 
-  This plugin provides a more scalable way to handle sessions than PHP's default session manager. Some plugins will require this to run on Pantheon's distributed infrastructure. For more details, see [WordPress and PHP Sessions](/wordpress-sessions/#troubleshooting-session-errors).
+  This plugin provides a more scalable way to handle sessions than PHP's default session manager. Some plugins will require this to run on Pantheon's distributed infrastructure. For more details, see [WordPress and PHP Sessions](/guides/php/wordpress-sessions/#troubleshooting-session-errors).
 
   #### [Pantheon HUD](https://wordpress.org/plugins/pantheon-hud/)
 

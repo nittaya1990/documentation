@@ -7,7 +7,6 @@ npm-debug.log
 /.vscode/
 */lighthouse_data/
 
-
 # Logs
 logs
 *.log
@@ -82,3 +81,5 @@ yarn-error.log
 /.env
 /.env.development
 /.env.production
+/.idea
+/.envrc
